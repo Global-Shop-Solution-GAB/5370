@@ -1,0 +1,1016 @@
+Program.Sub.ScreenSU.Start
+Gui.Form..Create
+Gui.Form..Caption("Commission Report")
+Gui.Form..Size(17910,9930)
+Gui.Form..MinX(0)
+Gui.Form..MinY(0)
+Gui.Form..Position(0,0)
+Gui.Form..BackColor(-2147483633)
+Gui.Form..MousePointer(0)
+Gui.Form..Event(UnLoad,Form_UnLoad)
+Gui.Form.lblSalesRepID.Create(Label,"Sales Rep ID",True,1020,255,0,75,1335,True,0,"Arial",8,-2147483633,0)
+Gui.Form.lblSalesRepName.Create(Label,"Name",True,1110,255,0,1185,1335,True,0,"Arial",8,-2147483633,0)
+Gui.Form.txtSalesRepID.Create(TextBox,"",True,1005,300,0,75,1545,True,0,"Arial",8,-2147483643,1)
+Gui.Form.txtSalesRepID.TabStop(True)
+Gui.Form.txtSalesRepID.TabIndex(5)
+Gui.Form.txtSalesRepName.Create(TextBox,"",True,2175,300,0,1185,1545,True,0,"Arial",8,-2147483643,1)
+Gui.Form.txtSalesRepName.TabStop(True)
+Gui.Form.txtSalesRepName.TabIndex(6)
+Gui.Form.cmdBrowseSalesRep.Create(Button)
+Gui.Form.cmdBrowseSalesRep.Size(570,330)
+Gui.Form.cmdBrowseSalesRep.Position(3450,1530)
+Gui.Form.cmdBrowseSalesRep.Caption("^")
+Gui.Form.cmdBrowseSalesRep.Event(Click,cmdBrowseSalesRep_Click)
+Gui.Form.cmdBrowseSalesRep.TabStop(True)
+Gui.Form.cmdBrowseSalesRep.TabIndex(7)
+Gui.Form.cmdRunReport.Create(Button)
+Gui.Form.cmdRunReport.Size(1455,375)
+Gui.Form.cmdRunReport.Position(1575,1935)
+Gui.Form.cmdRunReport.Caption("Run Report")
+Gui.Form.cmdRunReport.TabStop(True)
+Gui.Form.cmdRunReport.TabIndex(11)
+Gui.Form.cmdRunReport.Event(Click,cmdRunReport_Click)
+Gui.Form.gsRpt.Create(GsGridControl)
+Gui.Form.gsRpt.Size(17595,7005)
+Gui.Form.gsRpt.Position(90,2370)
+Gui.Form.gsRpt.TabStop(True)
+Gui.Form.gsRpt.TabIndex(13)
+Gui.Form.gsRpt.Event(RowCellClick,gsRpt_RowCellClick)
+Gui.Form.chkCrystal.Create(CheckBox)
+Gui.Form.chkCrystal.Size(1455,360)
+Gui.Form.chkCrystal.Position(75,1950)
+Gui.Form.chkCrystal.Caption("Crystal Report")
+Gui.Form.chkCrystal.TabStop(True)
+Gui.Form.chkCrystal.TabIndex(10)
+Gui.Form.cmdExportExcel.Create(Button)
+Gui.Form.cmdExportExcel.Size(1470,375)
+Gui.Form.cmdExportExcel.Position(3180,1935)
+Gui.Form.cmdExportExcel.TabStop(True)
+Gui.Form.cmdExportExcel.TabIndex(12)
+Gui.Form.cmdExportExcel.Caption("Export Excel")
+Gui.Form.cmdExportExcel.Event(Click,cmdExportExcel_Click)
+Gui.Form.chkAllSalesRep.Create(CheckBox)
+Gui.Form.chkAllSalesRep.Size(1410,360)
+Gui.Form.chkAllSalesRep.Position(4170,1500)
+Gui.Form.chkAllSalesRep.Caption("All Sales Rep.")
+Gui.Form.chkAllSalesRep.Event(Click,chkAllSalesRep_Click)
+Gui.Form.chkAllSalesRep.TabStop(True)
+Gui.Form.chkAllSalesRep.TabIndex(8)
+Gui.Form.frame1.Create(Frame)
+Gui.Form.frame1.Size(3240,1140)
+Gui.Form.frame1.Position(2595,75)
+Gui.Form.lbl1.Create(Label,"Start Date",True,1485,255,0,15,510,True,0,"Arial",8,-2147483633,0)
+Gui.Form.lbl1.Parent("frame1")
+Gui.Form.lbl2.Create(Label,"End Date",True,1515,255,0,1650,510,True,0,"Arial",8,-2147483633,0)
+Gui.Form.lbl2.Parent("frame1")
+Gui.Form.dtpStartDate.Create(DatePicker)
+Gui.Form.dtpStartDate.Size(1485,285)
+Gui.Form.dtpStartDate.Position(75,735)
+Gui.Form.dtpStartDate.TabStop(True)
+Gui.Form.dtpStartDate.TabIndex(3)
+Gui.Form.dtpStartDate.Parent("frame1")
+Gui.Form.dtpEndDate.Create(DatePicker)
+Gui.Form.dtpEndDate.Size(1470,285)
+Gui.Form.dtpEndDate.Position(1665,735)
+Gui.Form.dtpEndDate.TabStop(True)
+Gui.Form.dtpEndDate.TabIndex(4)
+Gui.Form.dtpEndDate.Parent("frame1")
+Gui.Form.chkLastPayment.Create(CheckBox)
+Gui.Form.chkLastPayment.Size(2775,360)
+Gui.Form.chkLastPayment.Position(75,120)
+Gui.Form.chkLastPayment.Parent("frame1")
+Gui.Form.chkLastPayment.TabStop(True)
+Gui.Form.chkLastPayment.TabIndex(2)
+Gui.Form.chkLastPayment.Caption("Last Payment Date Range")
+Gui.Form.chkLastPayment.Value(1)
+Gui.Form.chkLastPayment.Event(Click,chkLastPayment_Click)
+Gui.Form.chk100Paid.Create(CheckBox)
+Gui.Form.chk100Paid.Size(2085,360)
+Gui.Form.chk100Paid.Position(5610,1515)
+Gui.Form.chk100Paid.TabStop(True)
+Gui.Form.chk100Paid.TabIndex(9)
+Gui.Form.chk100Paid.Caption("Filter 100% balanced")
+Gui.Form.chk100Paid.Value(1)
+Gui.Form.proBar.Create(ProgressBar)
+Gui.Form.proBar.Visible(False)
+Gui.Form.proBar.Size(4095,150)
+Gui.Form.proBar.Position(4755,2130)
+Gui.Form.frame2.Create(Frame)
+Gui.Form.frame2.Size(2385,1155)
+Gui.Form.frame2.Position(75,60)
+Gui.Form.lbl3.Create(Label,"Cutoff for Invoice/Trans. Date",True,2265,255,0,60,255,True,0,"Arial",8,-2147483633,0)
+Gui.Form.lbl3.Parent("frame2")
+Gui.Form.lbl3.ForeColor(-2147483622)
+Gui.Form.dtpCutOff.Create(DatePicker)
+Gui.Form.dtpCutOff.Size(1815,285)
+Gui.Form.dtpCutOff.Position(105,480)
+Gui.Form.dtpCutOff.TabStop(True)
+Gui.Form.dtpCutOff.TabIndex(1)
+Gui.Form.dtpCutOff.Parent("frame2")
+Gui.Payments..Create
+Gui.Payments..Caption("Payments")
+Gui.Payments..Size(9195,4950)
+Gui.Payments..MinX(0)
+Gui.Payments..MinY(0)
+Gui.Payments..Position(0,0)
+Gui.Payments..BackColor(-2147483633)
+Gui.Payments..MousePointer(0)
+Gui.Payments..Event(UnLoad,Payments_UnLoad)
+Gui.Payments.lbl1.Create(Label,"Invoice",True,660,255,0,45,165,True,0,"Arial",8,-2147483633,0)
+Gui.Payments.gsPayments.Create(GsGridControl)
+Gui.Payments.gsPayments.Size(8880,3600)
+Gui.Payments.gsPayments.Position(60,795)
+Gui.Payments.txtInvoice.Create(TextBox,"",True,690,300,0,75,375,True,0,"Arial",8,-2147483643,1)
+Gui.Payments.lbl2.Create(Label,"Customer",True,900,255,0,2940,165,True,0,"Arial",8,-2147483633,0)
+Gui.Payments.lbl3.Create(Label,"Name",True,660,255,0,3795,165,True,0,"Arial",8,-2147483633,0)
+Gui.Payments.lbl4.Create(Label,"Order",True,570,255,0,6510,165,True,0,"Arial",8,-2147483633,0)
+Gui.Payments.lbl6.Create(Label,"Amount",True,660,255,0,870,165,True,0,"Arial",8,-2147483633,0)
+Gui.Payments.txtAmtInvoice.Create(TextBox,"",True,1125,300,0,870,375,True,1,"Arial",8,-2147483643,1)
+Gui.Payments.txtCustomer.Create(TextBox,"",True,675,300,0,3000,375,True,0,"Arial",8,-2147483643,1)
+Gui.Payments.txtNameCustomer.Create(TextBox,"",True,2610,300,0,3810,375,True,0,"Arial",8,-2147483643,1)
+Gui.Payments.txtOrder.Create(TextBox,"",True,765,300,0,6540,375,True,0,"Arial",8,-2147483643,1)
+Gui.Payments.lbl5.Create(Label,"Sales Rep.",True,900,255,0,7395,165,True,0,"Arial",8,-2147483633,0)
+Gui.Payments.txtSalesID.Create(TextBox,"",True,780,300,0,7425,375,True,0,"Arial",8,-2147483643,1)
+Gui.Payments.txtPctPaid.Create(TextBox,"",True,645,300,0,2100,375,True,1,"Arial",8,-2147483643,1)
+Gui.Payments.lbl7.Create(Label,"Pct Paid %",True,930,255,0,2040,165,True,0,"Arial",8,-2147483633,0)
+Gui.F_ProBar..Create
+Gui.F_ProBar..Caption("Progress")
+Gui.F_ProBar..Size(9930,1290)
+Gui.F_ProBar..MinX(0)
+Gui.F_ProBar..MinY(0)
+Gui.F_ProBar..Position(0,0)
+Gui.F_ProBar..BackColor(-2147483633)
+Gui.F_ProBar..MousePointer(0)
+Gui.F_ProBar..Event(UnLoad,F_ProBar_UnLoad)
+Gui.F_ProBar.proBar.Create(ProgressBar)
+Gui.F_ProBar.proBar.Size(9450,150)
+Gui.F_ProBar.proBar.Position(120,330)
+Program.Sub.ScreenSU.End
+
+Program.Sub.Preflight.Start
+v.Global.bManager.Declare
+Program.Sub.Preflight.End
+
+Program.Sub.Main.Start
+'BN, Nov 20, 2018
+'BN, June 20, 2019
+'Customer: Controlled Fluids, Inc.
+'Project 5370 - This project will pull the invoices paid and calculate the commission for a Sales Person.
+'Commision amount = Gross Profit * V_Commission_Rate.Commission_Rate %
+
+'Specs:
+'User will select:
+	'a.Cutoff date (default as 1 year from current date): this date will let the program not process the unnecessary calculations.
+	'b. 100% paid: Only pull the invoices that has been paid 100% (not less, not more).
+	'c. Last payment date range: this date range will tell the program to pull only invoices which the last payment date falls into that date range.
+	'd. Sales Rep to run the report for. Manager can run report for every/All Sales Rep. Otherwise the Sales Rep can only run the report for himself.
+		'There is a maintenance program that map the GSS User ID with Sales Person ID. Manager are users that are in security group COMMAN.
+	'e. Option to run the Crystal Report after the dashboard has been generated. The customer wanted the Crystal Report, but later they liked the dashboard more, so we stopped making change to the crystal report.
+
+F.Intrinsic.Control.Try
+	v.Local.sError.Declare
+	v.Local.sSQL.Declare
+	v.Local.sRet.Declare
+	V.Local.bGroup.Declare
+	v.Local.sUserLowerCase.Declare
+	v.Local.sSalesIDLowerCase.Declare
+	v.Local.iHold.Declare
+	v.Local.sHold.Declare
+	
+	f.ODBC.Connection!conx.OpenCompanyConnection(1000)
+	
+	'Check if user is in security group 'COMMAN'
+	F.Global.Security.IsInGroup(V.Caller.User,"COMMAN",V.Caller.CompanyCode,V.Local.bGroup)
+	f.Intrinsic.Control.If(v.Local.bGroup.Not)
+		v.Global.bManager.Set(False)
+		'If user is not in security group, then they must be a sales person to use the program
+		'Get Sales ID
+		f.Intrinsic.String.LCase(v.Caller.User,v.Local.sUserLowerCase)
+		f.Intrinsic.String.Build("Select Sales from GCG_5370_IDMaint where lcase(ltrim(rtrim(UserID))) = '{0}'",v.Local.sUserLowerCase.Trim,v.Local.sSQL)
+		f.ODBC.Connection!conx.ExecuteAndReturn(v.Local.sSQL,v.Local.sRet)
+		f.Intrinsic.Control.If(v.Local.sRet,=,"")
+			f.Intrinsic.UI.Msgbox("User ID is not linked to Sales ID","End Program")
+			f.Intrinsic.Control.ExitSub
+		f.Intrinsic.Control.Else
+			f.Intrinsic.String.LCase(v.Local.sRet,v.Local.sSalesIDLowerCase)
+			f.Intrinsic.String.Build("Select ID,Name from SalesPersons where lcase(ltrim(rtrim(ID))) = '{0}'",v.Local.sSalesIDLowerCase.Trim,v.Local.sSQL)
+			f.ODBC.Connection!conx.ExecuteAndReturn(v.Local.sSQL,v.Local.sRet)			
+			f.Intrinsic.Control.If(v.Local.sRet,=,"")
+				f.Intrinsic.UI.Msgbox("Sales ID is not valid. Please check User ID - Sales ID Maintenance program","End Program")
+				f.Intrinsic.Control.ExitSub
+			f.Intrinsic.Control.Else
+				'If User is a sales person, then they can only use the program to run the report for him/her only, not for other sales person
+				f.Intrinsic.String.Split(v.Local.sRet,"*!*",v.Local.sRet)
+				gui.Form.txtSalesRepID.Text(v.Local.sRet(0))
+				gui.Form.txtSalesRepName.Text(v.Local.sRet(1))
+				'Make Invisible other controls that prevents user to run report for other person
+				gui.Form.txtSalesRepID.Visible(False)
+				gui.Form.txtSalesRepName.Visible(False)
+				gui.Form.cmdBrowseSalesRep.Visible(False)
+				gui.Form.lblSalesRepID.Visible(False)
+				gui.Form.lblSalesRepName.Visible(False)
+				gui.Form.chkAllSalesRep.Visible(False)
+			f.Intrinsic.Control.EndIf		
+		f.Intrinsic.Control.EndIf		
+	f.Intrinsic.Control.EndIf
+
+	'Set default cutoff date to 1 years prior to current date
+	f.Intrinsic.Date.year(v.Ambient.Date,v.Local.iHold)
+	f.Intrinsic.Math.Sub(v.Local.iHold,1,v.Local.iHold)
+	f.Intrinsic.String.Build("01/01/{0}",v.Local.iHold,v.Local.sHold)
+	gui.Form.dtpCutOff.Value(v.Local.sHold)
+	
+	gui.Form.gsRpt.Anchor(15)
+	gui.Form..Show
+	
+F.Intrinsic.Control.Catch
+	F.Intrinsic.String.Build("Project: {0}{1}{1}Subroutine: {2}{1}Error Occurred {3} with description {4}{1}{1}GAB Version: {5}",V.Ambient.ScriptPath,V.Ambient.Newline,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Ambient.GABVersion,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)	
+F.Intrinsic.Control.EndTry	
+Program.Sub.Main.End
+
+Program.Sub.Form_UnLoad.Start
+F.Intrinsic.Control.Try
+	v.Local.sError.Declare
+	f.Intrinsic.Control.CallSub("Unload")
+	
+F.Intrinsic.Control.Catch
+	F.Intrinsic.String.Build("Project: {0}{1}{1}Subroutine: {2}{1}Error Occurred {3} with description {4}{1}{1}GAB Version: {5}",V.Ambient.ScriptPath,V.Ambient.Newline,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Ambient.GABVersion,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)	
+F.Intrinsic.Control.EndTry
+Program.Sub.Form_UnLoad.End
+
+Program.Sub.Unload.Start
+f.Intrinsic.Control.Try
+	v.Local.sError.Declare
+	
+	f.Intrinsic.Control.If(v.ODBC.conx.State,=,1)
+		f.ODBC.Connection!conx.Close
+	f.Intrinsic.Control.EndIf
+	f.Intrinsic.Control.End
+	
+F.Intrinsic.Control.Catch
+	F.Intrinsic.String.Build("Project: {0}{1}{1}Subroutine: {2}{1}Error Occurred {3} with description {4}{1}{1}GAB Version: {5}",V.Ambient.ScriptPath,V.Ambient.Newline,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Ambient.GABVersion,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.End 
+F.Intrinsic.Control.EndTry
+Program.Sub.Unload.End
+
+Program.Sub.cmdBrowseSalesRep_Click.Start
+'Browse Sales Person
+F.Intrinsic.Control.Try
+	v.Local..BulkDeclareString(sError,sRet)
+	
+	F.Intrinsic.UI.SetBrowserHotTypeAhead(True)
+	f.Intrinsic.UI.CommonBrowser(90,"",v.Local.sRet)
+	F.Intrinsic.Control.If(Variable.Local.sRet.IsCancel,=,False)
+		F.Intrinsic.String.Split(Variable.Local.sRet,"*!*",Variable.Local.sRet)
+		gui.Form.txtSalesRepID.Text(v.Local.sRet(0))
+		gui.Form.txtSalesRepName.Text(v.Local.sRet(1))
+	F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.Catch
+	F.Intrinsic.String.Build("Project: {0}{1}{1}Subroutine: {2}{1}Error Occurred {3} with description {4}{1}{1}GAB Version: {5}",V.Ambient.ScriptPath,V.Ambient.Newline,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Ambient.GABVersion,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)	
+	f.Intrinsic.Control.CallSub("Unload")
+F.Intrinsic.Control.EndTry
+Program.Sub.cmdBrowseSalesRep_Click.End
+
+Program.Sub.cmdRunReport_Click.Start
+F.Intrinsic.Control.Try
+	V.Local.sError.Declare
+	v.Local.sSQL.Declare
+	v.Local.sRet.Declare	
+	v.Local.sInvoices.Declare
+	v.Local.iCnt.Declare
+	v.Local.sFilter.Declare
+	v.Local.fComRate.Declare	
+	v.Local.sColumns.Declare
+	v.Local.sStartLastPayment.Declare
+	v.Local.sEndLastPayment.Declare
+	v.Local.fAmtPaid.Declare
+	v.Local.sLastPayDate.Declare
+	v.Local.dDate.Declare
+	v.Local.sParentInvoicesList.Declare
+	v.Local.iSec.Declare
+	v.Local.sCutOff.Declare
+	v.Local.sCommissionRef.Declare
+	v.Local.sProductLine2.Declare
+	v.Local.sComtype2.Declare
+	v.Local.sSalesRepList.Declare
+	v.Local.shold.Declare
+	v.Local.fHold1.Declare
+	v.Local.fHold2.Declare
+	v.Local.bExist.Declare
+	v.Local.dStartLastPayment.Declare
+	v.Local.dEndLastPayment.Declare
+	v.Local.sOrders.Declare
+	v.Local.sSelected0Cost.Declare
+	v.Local.iIndex.Declare
+	v.Local.fCostCopy.Declare
+	v.Local.sSelectedRows.Declare
+	v.Local.sInvoicesCheckList.Declare
+	v.Local.bInstring.Declare
+	v.Local.sStarDate.Declare
+	v.Local.sEndDate.Declare
+	
+
+	'Code 11: Cash Receipt. Code 12: Credit Memo
+	f.Intrinsic.UI.InvokeWaitDialog("Processing...")
+	
+	gui.Form..Visible(False)
+	gui.Payments..Visible(False)
+	
+	f.Intrinsic.String.Format(v.Screen.Form!dtpCutOff.Value,"YYYY-MM-DD",v.Local.sCutOff)
+
+	'1/Get AR table where Date_Transaction => cutoff date
+	f.Intrinsic.Control.If(v.DataTable.AROpenItems.Exists)
+		f.Data.DataTable.Close("AROpenItems")
+	f.Intrinsic.Control.EndIf
+	f.Intrinsic.String.Build("Select Invoice,Date_Invoice,Date_Transaction,Convert(AMT_INVOICE,SQL_float) as AmtPaid,Batch_Num,Batch_Line,Batch_Code,GL_Account,Reference from V_AR_Open_Items where Batch_Code in ('10','11','12','16')   and  Date_Transaction >= '{0}' order by Date_Transaction",v.Local.sCutOff,v.Local.sSQL)
+	f.Data.Datatable.CreateFromSQL("AROpenItems","conx",v.Local.sSQL,True)
+
+	'List of original Invoices since cutoff date	
+	f.Data.Dictionary.Exists("AmtInvoice_Dict",v.Local.bExist)
+	f.Intrinsic.Control.If(v.Local.bExist)
+		f.Data.Dictionary.Close("AmtInvoice_Dict")
+	f.Intrinsic.Control.EndIf
+	f.Intrinsic.String.Build("Select Invoice,Amt_Invoice from V_AR_Open_Items where Batch_Code = '10'  and  Date_Transaction >= '{0}'",v.Local.sCutOff,v.Local.sSQL)
+	f.Data.Dictionary.CreateFromSQL("AmtInvoice_Dict","conx",v.Local.sSQL)
+	f.Data.Dictionary.SetDefaultReturn("AmtInvoice_Dict",0)
+	
+	'2/Get all Payments
+	f.Data.DataView.Create("AROpenItems","AROpenItemsDV",22,"Batch_Code in ('11','12','16')","")
+	f.Intrinsic.Control.If(v.DataTable.Payments.Exists)
+		f.Data.DataTable.Close("Payments")
+	f.Intrinsic.Control.EndIf
+	f.Data.DataView.ToDataTable("AROpenItems","AROpenItemsDV","Payments",True)
+	
+	'Get distinct invoices list that has payments
+	f.Data.DataView.Create("Payments","PaymentsDV")
+	f.Intrinsic.Control.If(v.DataTable.InvoicesPaidList.Exists)
+		f.Data.DataTable.Close("InvoicesPaidList")
+	f.Intrinsic.Control.EndIf
+	f.Data.DataView.ToDataTableDistinct("Payments","PaymentsDV","InvoicesPaidList","Invoice",True)
+	f.Data.DataTable.AddColumn("InvoicesPaidList","LastPayDate","Date","1900-01-01")
+	
+	'Exist program when there are no payments at all
+	f.Intrinsic.Control.If(v.DataTable.InvoicesPaidList.RowCount,=,0)
+		f.Intrinsic.UI.Msgbox("No payments for Invoices","End")
+		f.Intrinsic.Control.ExitSub
+	f.Intrinsic.Control.EndIf
+	
+	'Create AmtPaid_Dict and LastPayDateDict
+	f.Data.Dictionary.Exists("AmtPaid_Dict",v.Local.bExist)
+	f.Intrinsic.Control.If(v.Local.bExist)
+		f.Data.Dictionary.Close("AmtPaid_Dict")
+	f.Intrinsic.Control.EndIf
+	f.Data.Dictionary.Create("AmtPaid_Dict")
+	f.Data.Dictionary.Exists("LastPayDateDict",v.Local.bExist)
+	f.Intrinsic.Control.If(v.Local.bExist)
+		f.Data.Dictionary.Close("LastPayDateDict")
+	f.Intrinsic.Control.EndIf
+	f.Data.Dictionary.Create("LastPayDateDict")
+	
+	'For each invoice, calculate the total payments and get the latest payment date
+	gui.F_ProBar..Show
+	gui.F_ProBar.proBar.Max(v.DataTable.InvoicesPaidList.RowCount)
+	f.Intrinsic.Control.For(v.Local.iCnt,0,v.DataTable.InvoicesPaidList.RowCount--,1)
+		'Increment probar
+		gui.F_ProBar.proBar.Value(v.Local.iCnt)
+		'Filter invoice and calculate total payments as well as last payment date
+		f.Intrinsic.String.Build("Invoice = '{0}'",v.DataTable.InvoicesPaidList(v.Local.iCnt).Invoice!FieldValString,v.Local.sFilter)
+		f.Data.DataTable.Compute("Payments","Sum(AmtPaid)",v.Local.sFilter,v.Local.fAmtPaid)
+		f.Data.Dictionary.AddItem("AmtPaid_Dict",v.DataTable.InvoicesPaidList(v.Local.iCnt).Invoice!FieldValString,v.Local.fAmtPaid)
+		f.Data.DataView.SetFilter("Payments","PaymentsDV",v.Local.sFilter)
+		f.Data.DataView.SetSort("Payments","PaymentsDV","Date_Transaction Desc")
+		f.Intrinsic.Control.If(v.DataView.Payments!PaymentsDV.RowCount,>,0)
+			f.Intrinsic.Control.If(v.DataView.Payments!PaymentsDV(0).Date_Transaction!FieldValTrim,<>,"")
+				f.Intrinsic.String.Format(v.DataView.Payments!PaymentsDV(0).Date_Transaction!FieldValTrim,"MM/DD/YYYY",v.Local.sLastPayDate)
+				v.Local.dDate.Set(v.Local.sLastPayDate)
+				f.Data.Dictionary.AddItem("LastPayDateDict",v.DataTable.InvoicesPaidList(v.Local.iCnt).Invoice!FieldValString,v.Local.dDate)
+				f.Data.DataTable.SetValue("InvoicesPaidList",v.Local.iCnt,"LastPayDate",v.Local.dDate)
+			f.Intrinsic.Control.EndIf
+		f.Intrinsic.Control.EndIf
+	f.Intrinsic.Control.Next(v.Local.iCnt)
+	gui.F_ProBar..Visible(False)
+
+	'Process Date Range
+	'Get only invoices that the last payment date is between the date range selected
+	f.Intrinsic.Control.If(v.Screen.Form!chkLastPayment.Value,=,1)
+		v.Local.dStartLastPayment.Set(v.Screen.Form!dtpStartDate.Value)
+		v.Local.dEndLastPayment.Set(v.Screen.Form!dtpEndDate.Value)
+		
+		f.Intrinsic.Control.For(v.Local.iCnt,v.DataTable.InvoicesPaidList.RowCount--,0,-1)
+			v.Local.dDate.Set(v.DataTable.InvoicesPaidList(v.Local.iCnt).LastPayDate!FieldValString)
+			f.Intrinsic.Control.If(v.Local.dDate,<,v.Local.dStartLastPayment,or,v.Local.dDate,>,v.Local.dEndLastPayment)
+				f.Data.DataTable.DeleteRow("InvoicesPaidList",v.Local.iCnt)
+			f.Intrinsic.Control.EndIf
+		f.Intrinsic.Control.Next(v.Local.iCnt)
+		
+		f.Data.DataTable.AcceptChanges("InvoicesPaidList")
+	f.Intrinsic.Control.EndIf
+
+	'Exist program when there are no payments at all
+	f.Intrinsic.Control.If(v.DataTable.InvoicesPaidList.RowCount,=,0)
+		f.Intrinsic.UI.Msgbox("No payments for Invoices in this date range","End")
+		f.Intrinsic.Control.ExitSub
+	f.Intrinsic.Control.EndIf
+
+	'Build list of Invoices that have the Last Pay Date falling in the date range
+	f.Data.DataView.Create("InvoicesPaidList","InvoicesPaidListDV")
+	f.Data.DataView.ToString("InvoicesPaidList","InvoicesPaidListDV","Invoice","","','",v.Local.sInvoices)
+	
+	'3/Process Balanced 100%	
+	'This is the list of Invoices that have the Last Pay Date falling in the date range and have 100% balanced
+	f.Intrinsic.Control.If(v.Screen.Form!chk100Paid.Value,=,1)
+		f.Intrinsic.String.Build("Select Invoice from AR_Open_Items  where Invoice in ('{0}') Group by Invoice having sum(amt_invoice) = 0",v.Local.sInvoices,v.Local.sSQL)
+		f.Intrinsic.Control.If(v.DataTable.InvoicesPaid100List.Exists)
+			f.Data.DataTable.Close("InvoicesPaid100List")
+		f.Intrinsic.Control.EndIf
+		f.Data.DataTable.CreateFromSQL("InvoicesPaid100List","conx",v.Local.sSQL,True)
+		f.Data.DataView.Create("InvoicesPaid100List","InvoicesPaid100ListDV")
+		f.Data.DataView.ToString("InvoicesPaid100List","InvoicesPaid100ListDV","Invoice","","','",v.Local.sInvoices)	
+
+		'Exist program when there are no payments at all
+		f.Intrinsic.Control.If(v.DataTable.InvoicesPaid100List.RowCount,=,0)
+			f.Intrinsic.UI.Msgbox("No payments for Invoices in this date range that reached 100% paid","End")
+			f.Intrinsic.Control.ExitSub
+		f.Intrinsic.Control.EndIf
+	f.Intrinsic.Control.EndIf	
+
+	'SetDefaultReturn for dictionaries
+	f.Data.Dictionary.SetDefaultReturn("AmtPaid_Dict",0)
+	f.Data.Dictionary.SetDefaultReturn("LastPayDateDict","1900-01-01")	
+	
+	'4/Get the data table OrdHist from Order_Hist_line with the list of all invoices
+	f.Intrinsic.UI.ChangeWaitStatus("Connecting to get Invoice Lines...")
+	f.Intrinsic.Control.If(v.DataTable.OrdHistRaw.Exists)
+		f.Data.DataTable.Close("OrdHistRaw")
+	f.Intrinsic.Control.EndIf
+	f.Data.DataTable.CreateFromSQL("OrdHistRaw","conx","SELECT Convert(0,SQL_Float) as Num,Invoice,Convert(0,SQL_Float) as AmtInvoice,Convert(0,SQL_Float) as AmtPaid, Customer,Name_Cust_Ship,ORDER_NO,Order_Line,SalesPerson,Line_Type,o.PART,o.Location,o.PART + '-' + o.Location as PartLoc,Description,Product_Line,Discount,Price,Price_Discount, Extension,o.Gl_Account,g.Descr,Amt_Discount,Qty_Shipped,Date_Invoice,o.Cost as OrdUnitCost,Qty_Shipped * o.Cost as CostOrd,Convert(0,SQL_Float) as InvPartCost,'M' as Type,Commission_Type,Convert(0,SQL_Float) as Commission_Rate,'' as AltFrom,'' as AltNum, '' as CommissionRef,CREDIT_MEMO_FLAG,FLAG_RMA FROM V_ORDER_HIST_LINE o left join v_Gl_Master g on o.GL_account = g.GL_Account ",True)
+
+	'Only get the data for the invoices in the list. Avoid using 'in' in PSQL because PSQL does not handle a great amount of list. We filter by using dataview
+	
+	'Get Order Hist by Invoices
+	f.Intrinsic.UI.ChangeWaitStatus("Filtering from Raw...")
+	f.Intrinsic.String.Build("(Line_Type = 'S' or line_type =  'D') and Invoice in ('{0}')",v.Local.sInvoices,v.Local.sFilter)
+	f.Data.DataView.Create("OrdHistRaw","OrdHistRawDV",22,v.Local.sFilter,"SalesPerson Asc,Date_Invoice Asc,Invoice Asc")	
+	
+	f.Intrinsic.Control.If(v.DataTable.OrdHist1.Exists)
+		f.Data.DataTable.Close("OrdHist1")
+	f.Intrinsic.Control.EndIf
+	f.Data.DataView.ToDataTableDistinct("OrdHistRaw","OrdHistRawDV","OrdHist1","Order_No",True)
+	f.Data.DataView.Create("OrdHist1","OrdHist1DV")
+	f.Data.DataView.ToString("OrdHist1","OrdHist1DV","Order_No","","','",v.Local.sOrders)	
+	
+	f.Intrinsic.String.Build("(Line_Type = 'S' or line_type =  'D') and Order_No in ('{0}') ",v.Local.sOrders,v.Local.sFilter)
+
+	'Get Order Hist by Orders
+	f.Data.DataView.SetFilter("OrdHistRaw","OrdHistRawDV",v.Local.sFilter)
+	f.Data.DataView.SetSort("OrdHistRaw","OrdHistRawDV","SalesPerson Asc,Date_Invoice Asc,Invoice Asc")
+	f.Intrinsic.Control.If(v.DataTable.OrdHist.Exists)
+		f.Data.DataTable.Close("OrdHist")
+	f.Intrinsic.Control.EndIf
+	f.Data.DataView.ToDataTable("OrdHistRaw","OrdHistRawDV","OrdHist",True)
+
+	'Copy Unit Cost from original invoice line to RMA lines
+	f.Intrinsic.Control.If(v.DataTable.OrdHistCost.Exists)
+		f.Data.DataTable.Close("OrdHistCost")
+	f.Intrinsic.Control.EndIf
+	f.Data.DataView.ToDataTable("OrdHistRaw","OrdHistRawDV","OrdHistCost",True)
+	f.Data.DataView.Create("OrdHistCost","OrdHistCostDV")
+
+	f.Data.DataTable.Select("OrdHist","OrdUnitCost = 0",v.Local.sSelected0Cost)
+	f.Intrinsic.Control.If(v.Local.sSelected0Cost,<>,"***NORETURN***")
+		f.Intrinsic.String.Split(v.Local.sSelected0Cost,"*!*",v.Local.sSelected0Cost)
+		f.Intrinsic.Control.For(v.Local.iCnt,0,v.Local.sSelected0Cost.UBound,1)
+			v.Local.iIndex.Set(v.Local.sSelected0Cost(v.Local.iCnt))
+			f.Intrinsic.String.Build("Order_No = '{0}' and Order_Line = '{1}' and OrdUnitCost <> 0",v.DataTable.OrdHist(v.Local.iIndex).Order_No!FieldValString,v.DataTable.OrdHist(v.Local.iIndex).Order_Line!FieldValString,v.Local.sFilter)
+			f.Data.DataView.SetFilter("OrdHistCost","OrdHistCostDV",v.Local.sFilter)
+			f.Intrinsic.Control.If(v.DataView.OrdHistCost!OrdHistCostDV.RowCount,>,0)				
+				f.Intrinsic.Math.Mult(v.DataTable.OrdHist(v.Local.iIndex).Qty_Shipped!FieldValString,v.DataView.OrdHistCost!OrdHistCostDV(0).OrdUnitCost!FieldValString,v.Local.fCostCopy)
+				f.Data.DataTable.SetValue("OrdHist",v.Local.iIndex,"OrdUnitCost",v.DataView.OrdHistCost!OrdHistCostDV(0).OrdUnitCost!FieldValString,"CostOrd",v.Local.fCostCopy)
+			f.Intrinsic.Control.EndIf
+		f.Intrinsic.Control.Next(v.Local.iCnt)	
+		
+	f.Intrinsic.Control.EndIf	
+	
+	'Use Inventory Cost (CostInv) if some OrderCost is not populated
+	f.Data.Dictionary.CreateFromSQL("InvPartCostDict","conx","Select Part + '-' + Locn as PartLoc,Cost from Inventory_Cost")
+	f.Data.Dictionary.SetDefaultReturn("InvPartCostDict",0)
+	f.Data.DataTable.FillFromDictionary("OrdHist","InvPartCostDict","PartLoc","InvPartCost")
+	f.Data.Dictionary.Close("InvPartCostDict")
+	f.Data.DataTable.AddExpressionColumn("OrdHist","CostInv","Float","Qty_Shipped * InvPartCost")		
+	'Cost: get CostOrd if it is <> 0, if not, get CostInv
+	f.Data.DataTable.AddExpressionColumn("OrdHist","Cost","Float","IIF(CostOrd <> 0,CostOrd,CostInv)")
+	
+	'Add Gross Profit, PctProfit	
+	F.Data.DataTable.AddColumn("OrdHist","Userid","String",v.Caller.user)
+	F.Data.DataTable.AddExpressionColumn("OrdHist","GrossProfit","float","EXTENSION - COST")	
+	F.Data.DataTable.AddExpressionColumn("OrdHist","PctProfit","float","IIF(EXTENSION <> 0,100 * GrossProfit / Extension,0)")
+	
+	'Populate the PctPaid, AmtPaid, AmtInvoice, PctPaid	
+	f.Data.DataTable.FillFromDictionary("OrdHist","AmtPaid_Dict","INVOICE","AmtPaid")
+	f.Data.Dictionary.Close("AmtPaid_Dict")
+	f.Data.DataTable.FillFromDictionary("OrdHist","AmtInvoice_Dict","INVOICE","AmtInvoice")
+	
+	'Calculate Percentage paid
+	f.Data.DataTable.AddColumn("OrdHist","PctPaid","Float",0)	
+	f.Intrinsic.Control.For(v.Local.iCnt,0,v.DataTable.OrdHist.RowCount--,1)
+		f.Intrinsic.String.Build("Invoice = '{0}' and Batch_Code = '10'",v.DataTable.OrdHist(v.Local.iCnt).Invoice!FieldValString,v.Local.sFilter)
+		f.Data.DataTable.Compute("AROpenItems","Sum([AMTPaid])",v.Local.sFilter,v.Local.fHold1)
+		v.Local.fHold2.Set(v.DataTable.OrdHist(v.Local.iCnt).AmtPaid!FieldValString)
+		f.Intrinsic.Control.If(v.Local.fHold1,<>,0)
+			f.Intrinsic.Math.Div(v.Local.fHold2,v.Local.fHold1,v.Local.shold)
+			f.Intrinsic.Math.Mult(v.Local.shold,-100,v.Local.shold)
+			f.Intrinsic.String.Format(v.Local.shold,"0.00",v.Local.sHold)
+			f.Data.DataTable.SetValue("OrdHist",v.Local.iCnt,"PctPaid",v.Local.shold)		
+		f.Intrinsic.Control.EndIf
+
+	f.Intrinsic.Control.Next(v.Local.iCnt)
+	
+	'Last Payment Date
+	f.Data.DataTable.AddColumn("OrdHist","LastPayDate1","Date")
+	f.Data.DataTable.FillFromDictionary("OrdHist","LastPayDateDict","INVOICE","LastPayDate1")
+	f.Data.DataTable.AddExpressionColumn("OrdHist","LastPayDate","Date","IIF([LastPayDate1] = #01/01/1900#,[Date_Invoice],[LastPayDate1])")
+
+
+	'BN, Aug 5 2019, Filter again by Last Paydate
+	f.Intrinsic.Control.If(v.Screen.Form!chkLastPayment.Value,=,1)
+		f.Intrinsic.String.Format(v.Screen.Form!dtpStartDate.Value,"MM/DD/YYYY",v.Local.sStarDate)
+		f.Intrinsic.String.Format(v.Screen.Form!dtpEndDate.Value,"MM/DD/YYYY",v.Local.sEndDate)
+		f.Intrinsic.String.Build("GL_Account <> '49000-1500' and GL_Account <> '20550-1500' and LastPayDate >= #{0}# and LastPaydate <= #{1}#",v.Local.sStarDate,v.Local.sEndDate,v.Local.sFilter)
+	f.Intrinsic.Control.Else
+		v.Local.sFilter.Set("GL_Account <> '49000-1500' and GL_Account <> '20550-1500'")
+	f.Intrinsic.Control.EndIf		
+	f.Data.DataView.Create("OrdHist","OrdHistDV",22,v.Local.sFilter,"SalesPerson Asc,Date_Invoice Asc,Invoice Asc")
+	f.Intrinsic.Control.If(v.DataTable.Temp.Exists)
+		f.Data.DataTable.Close("Temp")
+	f.Intrinsic.Control.EndIf
+	f.Data.DataView.ToDataTable("OrdHist","OrdHistDV","Temp",True)
+	f.Data.DataTable.Close("OrdHist")
+	f.Data.DataView.Create("Temp","TempDV")
+	f.Data.DataView.ToDataTable("Temp","TempDV","OrdHist",True)
+	f.Data.DataTable.Close("Temp")	
+
+	f.Data.DataTable.AddColumn("OrdHist","InSeries","long",0)
+
+	f.Data.DataTable.Select("OrdHist","AmtInvoice = 0",v.Local.sSelectedRows)
+	f.Intrinsic.Control.If(v.Local.sSelectedRows,<>,"***NORETURN***")
+		F.Intrinsic.String.Split(V.Local.sSelectedRows,"*!*",V.Local.sSelectedRows)
+		F.Intrinsic.Control.For(V.Local.iCnt,0,V.Local.sSelectedRows.UBound,1)
+			v.Local.iIndex.Set(v.Local.sSelectedRows(v.Local.iCnt))
+			f.Intrinsic.String.Build("Batch_num like 'S*' and  Batch_code = '12' and Trim(Reference) = 'CM # {0}'",V.DataTable.OrdHist(v.Local.iIndex).Invoice!FieldValTrim,v.Local.sFilter)
+			f.Data.DataView.SetFilter("AROpenItems","AROpenItemsDV",v.Local.sFilter)
+			f.Intrinsic.Control.If(v.DataView.AROpenItems!AROpenItemsDV.RowCount,>,0)
+				f.Data.DataTable.SetValue("OrdHist",v.Local.iIndex,"AmtInvoice",v.DataView.AROpenItems!AROpenItemsDV(0).AmtPaid!FieldValString,"InSeries",1)
+			f.Intrinsic.Control.EndIf				
+		F.Intrinsic.Control.Next(V.Local.iCnt)
+	f.Intrinsic.Control.EndIf
+	
+	'Delete Invoice having amount = 0 and 
+	f.Intrinsic.Control.For(v.Local.iCnt,v.DataTable.OrdHist.RowCount--,0,-1)	
+		f.Intrinsic.String.Build("'{0}'",v.DataTable.OrdHist(v.Local.iCnt).Invoice!FieldValString,v.Local.shold)
+		f.Intrinsic.String.Build("'{0}'",v.Local.sInvoices,v.Local.sInvoicesCheckList)
+		f.Intrinsic.String.IsInString(v.Local.sInvoicesCheckList,v.Local.shold,"True",v.Local.bInstring)
+		f.Intrinsic.Control.If(v.Local.bInstring,=,False,and,v.DataTable.OrdHist(v.Local.iCnt).InSeries!FieldValString,=,0)
+			f.Data.DataTable.DeleteRow("OrdHist",v.Local.iCnt)		
+		f.Intrinsic.Control.EndIf
+	f.Intrinsic.Control.Next(v.Local.iCnt)	
+	f.Data.DataTable.AcceptChanges("OrdHist")
+		
+	'Commision Amount (Type M)
+	f.Intrinsic.UI.ChangeWaitStatus("Calculating Main Commission...")
+	
+	f.Data.Dictionary.CreateFromSQL("CommissionRefDict","conx","Select SalesPerson + '-' + replace(Commission_Type,' ','_') as CommissionRef,Commission_Rate from COMMISSION_RATE")
+	f.Data.Dictionary.SetDefaultReturn("CommissionRefDict",0)
+	
+	gui.F_ProBar..Visible(True)
+	gui.F_ProBar.proBar.Max(v.DataTable.OrdHist.RowCount)
+	f.Intrinsic.Control.For(v.Local.iCnt,0,v.DataTable.OrdHist.RowCount--,1)
+		gui.F_ProBar.proBar.Value(v.Local.iCnt)
+		'f.Intrinsic.String.Replace(v.DataTable.OrdHist(v.Local.iCnt).Product_Line!FieldValString," ","_",v.Local.sProductLine2)
+		f.Intrinsic.String.Replace(v.DataTable.OrdHist(v.Local.iCnt).Commission_Type!FieldValString," ","_",v.Local.sComtype2)
+		f.Intrinsic.String.Build("{0}-{1}",v.DataTable.OrdHist(v.Local.iCnt).SalesPerson!FieldValString,v.Local.sComtype2,v.Local.sCommissionRef)		
+		f.Data.DataTable.SetValue("OrdHist",v.Local.iCnt,"Commission_Rate",v.dictionary.CommissionRefDict![v.Local.sCommissionRef],"CommissionRef",v.Local.sCommissionRef)
+	f.Intrinsic.Control.Next(v.Local.iCnt)
+	f.Data.Dictionary.Close("CommissionRefDict")
+	
+	'Populate Alt Commission (Type A) from other Sales Rep.
+	f.Intrinsic.UI.ChangeWaitStatus("Calculating Alternate Commission...")
+	f.Intrinsic.Control.CallSub("Populate_Alt_Commission_Rate")
+	
+	'All Commission Rate has been populated, now calculate the Commision Amount
+	F.Data.DataTable.AddExpressionColumn("OrdHist","ComAmt","float","GrossProfit * Commission_Rate ")
+	
+	'Get Invoices relating to the Sales Rep
+	f.Intrinsic.UI.ChangeWaitStatus("Filtering by Sales Rep...")
+	f.Intrinsic.Control.If(v.Screen.Form!chkAllSalesRep.Value,=,0)
+		f.Intrinsic.Control.If(v.Global.bManager.Not)
+			'Sales Rep is not a manager. This Sales Rep have an GSS user ID that can run the report for himself and common sales reps			
+			'Get common Sales Rep
+			f.ODBC.Connection!conx.ExecuteAndReturn("Select Sales from GCG_5370_IDMaint where UserID = '###$$$'",v.Local.sRet)
+			'There are common sales rep setup from maintenance program
+			f.Intrinsic.Control.If(v.Local.sRet,<>,"")
+				f.Intrinsic.String.Replace(v.Local.sRet,"#$#","','",v.Local.sRet)
+				f.Intrinsic.String.Build("{0}','{1}",v.Screen.Form!txtSalesRepID.Text.Trim,v.Local.sRet,v.Local.sSalesRepList)
+				f.Intrinsic.String.Build("SalesPerson in ('{0}')",v.Local.sSalesRepList,v.Local.sFilter)
+			f.Intrinsic.Control.Else
+				f.Intrinsic.String.Build("SalesPerson = '{0}'",v.Screen.Form!txtSalesRepID.Text.Trim,v.Local.sFilter)
+			f.Intrinsic.Control.EndIf		
+		f.Intrinsic.Control.Else
+			'The manager runs report for a particular Sales Rep
+			f.Intrinsic.String.Build("SalesPerson = '{0}'",v.Screen.Form!txtSalesRepID.Text.Trim,v.Local.sFilter)
+		f.Intrinsic.Control.EndIf	
+		
+		f.Data.DataView.Create("OrdHist","OrdHistDV",22,v.Local.sFilter,"")
+		f.Data.DataView.ToDataTable("OrdHist","OrdHistDV","OrdHist2",True)
+		f.Data.DataTable.Close("OrdHist")	
+		f.Data.DataView.Create("OrdHist2","OrdHist2DV")
+		f.Data.DataView.ToDataTable("OrdHist2","OrdHist2DV","OrdHist",True)
+		f.Data.DataTable.Close("OrdHist2")
+	f.Intrinsic.Control.EndIf
+
+	'Set series
+	f.Data.DataTable.SetSeries("OrdHist","Num",1,1)
+	
+	'Commission Grid
+	f.Intrinsic.UI.ChangeWaitStatus("Formatting Commissions Grid...")
+	gui.Form.gsRpt.AddGridviewFromDatatable("GVMain","OrdHist")	
+	f.Intrinsic.Control.CallSub("Format_gsRpt")	
+	gui.Form.gsRpt.MainView("GVMain")
+	
+	'Payment Grid
+	f.Intrinsic.UI.ChangeWaitStatus("Formatting Payments Grid...")
+	gui.Payments.gsPayments.AddGridviewFromDataview("GVPayments","Payments","PaymentsDV")
+	f.Intrinsic.Control.CallSub("Format_gsPayments")
+	
+	gui.Form..Show
+	f.Intrinsic.UI.CloseWaitDialog
+	'Will not run the crystal report if Crystal checkbox is not checked
+	f.Intrinsic.Control.If(v.Screen.Form!chkCrystal.Value,=,0)
+		f.Intrinsic.Control.ExitSub
+	f.Intrinsic.Control.EndIf
+	
+	'Call BI report
+	'Delete GCG_5370_Commission by userID
+	F.Intrinsic.String.Build("Delete from GCG_5370_Commission Where UserID = '{0}' and SalesPerson = '{1}'",V.Caller.User,v.Screen.Form!txtSalesRepID.Text,V.Local.sSQL)
+	F.ODBC.Connection!conx.Execute(v.Local.sSQL)
+	f.Data.DataTable.SaveToDB("OrdHist","conx","GCG_5370_Commission","",128)
+	f.Intrinsic.Control.CallSub("Print_Report","StartDate",v.Local.sStartLastPayment,"EndDate",v.Local.sEndLastPayment)		
+	
+F.Intrinsic.Control.Catch
+	F.Intrinsic.String.Build("Project: {0}{1}{1}Subroutine: {2}{1}Error Occurred {3} with description {4}{1}{1}GAB Version: {5}",V.Ambient.ScriptPath,V.Ambient.Newline,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Ambient.GABVersion,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	f.Intrinsic.Control.CallSub("Form_Unload")
+F.Intrinsic.Control.EndTry
+Program.Sub.cmdRunReport_Click.End
+
+Program.Sub.Populate_Alt_Commission_Rate.Start
+f.Intrinsic.Control.Try
+	v.Local.sError.Declare
+	v.Local.sCommissionRefs.Declare
+	v.Local.sFilter.Declare
+	v.Local.iCnt.Declare
+	v.Local.iInner.Declare
+	v.Local.sAlternateCol.Declare
+	v.Local.sAlternateRate.Declare
+	
+	'Get Commission type that has Alternate
+	f.Data.Datatable.CreateFromSQL("AltCom","conx","select SALESPERSON +'-' + replace(Commission_Type,' ','_') as CommissionRef, SALESPERSON,PRODUCT_LINE,COMMISSION_TYPE,COMMISSION_RATE,ALTERNATE_SM1, ALTERNATE_RATE1,ALTERNATE_SM2,ALTERNATE_RATE2,ALTERNATE_SM3, ALTERNATE_RATE3,ALTERNATE_SM4, ALTERNATE_RATE4,ALTERNATE_SM5,ALTERNATE_RATE5,ALTERNATE_SM6,ALTERNATE_RATE6,ALTERNATE_SM7,ALTERNATE_RATE7,ALTERNATE_SM8,ALTERNATE_RATE8 from COMMISSION_RATE where ALTERNATE_SM1 <> '' OR ALTERNATE_SM2 <> '' OR ALTERNATE_SM3 <> '' OR ALTERNATE_SM4 <> '' OR ALTERNATE_SM5 <> '' OR ALTERNATE_SM6 <> '' OR ALTERNATE_SM7 <> '' OR ALTERNATE_SM8 <> ''",True)
+	'Build a list of CommissionRef that has Alternate
+	f.Data.DataView.Create("AltCom","AltComDv")
+	f.Data.DataView.ToString("AltCom","AltComDv","CommissionRef","","','",v.Local.sCommissionRefs)
+	f.Intrinsic.String.Build("CommissionRef in ('{0}')",v.Local.sCommissionRefs,v.Local.sFilter)
+	'Get a the OrdHist records that has Commission Alternate
+	f.Data.DataView.Create("OrdHist","OrdHistComRefDV",22,v.Local.sFilter,"")
+	f.Data.DataView.ToDataTable("OrdHist","OrdHistComRefDV","OrdHistAltCom",True)
+	
+	'Loop the OrdHistAltCom and add records to OrdHist table
+	f.Intrinsic.Control.If(v.DataTable.OrdHistAltCom.RowCount,>,0)
+		gui.F_ProBar..Show
+		gui.F_ProBar.proBar.Max(v.DataTable.OrdHistAltCom.RowCount)		
+		f.Intrinsic.Control.For(v.Local.iCnt,0,v.DataTable.OrdHistAltCom.RowCount--,1)
+			gui.F_ProBar.proBar.Value(v.Local.iCnt)
+			f.Intrinsic.String.Build("CommissionRef = '{0}'",v.DataTable.OrdHistAltCom(v.Local.iCnt).CommissionRef!FieldValString,v.Local.sFilter)			
+			f.Data.DataView.SetFilter("AltCom","AltComDv",v.Local.sFilter)	
+			f.Intrinsic.Control.For(v.Local.iInner,1,8,1)
+				f.Intrinsic.String.Build("Alternate_SM{0}",v.Local.iInner,v.Local.sAlternateCol)
+				f.Intrinsic.String.Build("Alternate_Rate{0}",v.Local.iInner,v.Local.sAlternateRate)
+				f.Intrinsic.Control.If(v.DataView.AltCom!AltComDv(0).[v.Local.sAlternateCol]!FieldValTrim,<>,"")
+					'Add record to OrdHist table
+					f.Data.DataTable.AddRow("OrdHist","SalesPerson",v.DataView.AltCom!AltComDv(0).[v.Local.sAlternateCol]!FieldValTrim,"Type","A","Customer",v.DataTable.OrdHistAltCom(v.Local.iCnt).Customer!FieldValString,"Name_Cust_Ship",v.DataTable.OrdHistAltCom(v.Local.iCnt).Name_Cust_Ship!FieldValString,"Order_No",v.DataTable.OrdHistAltCom(v.Local.iCnt).Order_No!FieldValString,"Invoice",v.DataTable.OrdHistAltCom(v.Local.iCnt).Invoice!FieldValString,"Date_Invoice",v.DataTable.OrdHistAltCom(v.Local.iCnt).Date_Invoice!FieldValString,"AmtInvoice",v.DataTable.OrdHistAltCom(v.Local.iCnt).AmtInvoice!FieldValString,"AmtPaid",v.DataTable.OrdHistAltCom(v.Local.iCnt).AmtPaid!FieldValString,"PctPaid",v.DataTable.OrdHistAltCom(v.Local.iCnt).PctPaid!FieldValString,"LastPayDate1",v.DataTable.OrdHistAltCom(v.Local.iCnt).LastPayDate1!FieldValString,"LastPayDate",v.DataTable.OrdHistAltCom(v.Local.iCnt).LastPayDate!FieldValString,"Part",v.DataTable.OrdHistAltCom(v.Local.iCnt).Part!FieldValString,"Location",v.DataTable.OrdHistAltCom(v.Local.iCnt).Location!FieldValString,"Description",v.DataTable.OrdHistAltCom(v.Local.iCnt).Description!FieldValString,"Qty_Shipped",v.DataTable.OrdHistAltCom(v.Local.iCnt).Qty_Shipped!FieldValString,"Extension",v.DataTable.OrdHistAltCom(v.Local.iCnt).Extension!FieldValString,"Cost",v.DataTable.OrdHistAltCom(v.Local.iCnt).Cost!FieldValString,"GrossProfit",v.DataTable.OrdHistAltCom(v.Local.iCnt).GrossProfit!FieldValString,"PctProfit",v.DataTable.OrdHistAltCom(v.Local.iCnt).PctProfit!FieldValString,"Commission_Type",v.DataTable.OrdHistAltCom(v.Local.iCnt).Commission_Type!FieldValString,"Commission_Rate",v.DataView.AltCom!AltComDv(0).[v.Local.sAlternateRate]!FieldValString,"AltFrom",v.DataTable.OrdHistAltCom(v.Local.iCnt).SalesPerson!FieldValString,"AltNum",v.Local.iInner,"CommissionRef",v.DataTable.OrdHistAltCom(v.Local.iCnt).CommissionRef!FieldValString,"Discount",v.DataTable.OrdHistAltCom(v.Local.iCnt).Discount!FieldValString,"Price",v.DataTable.OrdHistAltCom(v.Local.iCnt).Price!FieldValString,"Price_Discount",v.DataTable.OrdHistAltCom(v.Local.iCnt).Price_Discount!FieldValString,"Amt_discount",v.DataTable.OrdHistAltCom(v.Local.iCnt).Amt_discount!FieldValString,"CostInv",v.DataTable.OrdHistAltCom(v.Local.iCnt).CostInv!FieldValString,"CostOrd",v.DataTable.OrdHistAltCom(v.Local.iCnt).CostOrd!FieldValString,"Line_Type",v.DataTable.OrdHistAltCom(v.Local.iCnt).Line_Type!FieldValString,"Location",v.DataTable.OrdHistAltCom(v.Local.iCnt).Location!FieldValString,"UserID",v.DataTable.OrdHistAltCom(v.Local.iCnt).UserID!FieldValString,"PartLoc",v.DataTable.OrdHistAltCom(v.Local.iCnt).PartLoc!FieldValString,"InvPartCost",v.DataTable.OrdHistAltCom(v.Local.iCnt).InvPartCost!FieldValString,"Product_Line",v.DataTable.OrdHistAltCom(v.Local.iCnt).Product_Line!FieldValString,"GL_Account",v.DataTable.OrdHistAltCom(v.Local.iCnt).GL_Account!FieldValString,"Descr",v.DataTable.OrdHistAltCom(v.Local.iCnt).Descr!FieldValString,"Credit_Memo_Flag",v.DataTable.OrdHistAltCom(v.Local.iCnt).Credit_Memo_Flag!FieldValString,"Flag_RMA",v.DataTable.OrdHistAltCom(v.Local.iCnt).Flag_RMA!FieldValString,"InSeries",v.DataTable.OrdHistAltCom(v.Local.iCnt).InSeries!FieldValString,"Order_Line",v.DataTable.OrdHistAltCom(v.Local.iCnt).Order_Line!FieldValString,"OrdUnitCost",v.DataTable.OrdHistAltCom(v.Local.iCnt).OrdUnitCost!FieldValString)
+				f.Intrinsic.Control.EndIf
+			f.Intrinsic.Control.Next(v.Local.iInner)
+		f.Intrinsic.Control.Next(v.Local.iCnt)
+	f.Intrinsic.Control.EndIf
+	gui.F_ProBar..Visible(False)
+	f.Data.DataTable.Close("OrdHistAltCom")
+	f.Data.DataTable.Close("AltCom")
+	
+F.Intrinsic.Control.Catch
+	F.Intrinsic.String.Build("Project: {0}{1}{1}Subroutine: {2}{1}Error Occurred {3} with description {4}{1}{1}GAB Version: {5}",V.Ambient.ScriptPath,V.Ambient.Newline,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Ambient.GABVersion,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	f.Intrinsic.Control.CallSub("Form_Unload")
+F.Intrinsic.Control.EndTry
+Program.Sub.Populate_Alt_Commission_Rate.End
+
+Program.Sub.Format_gsRpt.Start
+f.Intrinsic.Control.Try
+	v.Local.sError.Declare
+	
+	Gui.Form.gsRpt.SuspendLayout()	
+	Gui.Form.gsRpt.SetGridViewProperty("GVMain","AllowSort",True)
+	Gui.Form.gsRpt.SetGridViewProperty("GVMain","AllowFilter",True)
+	Gui.Form.gsRpt.SetGridViewProperty("GVMain","OptionsFindAlwaysVisible",True)
+	Gui.Form.gsRpt.SetGridViewProperty("GVMain","EnableAppearanceOddRow",False)
+	Gui.Form.gsRpt.SetGridViewProperty("GVMain","OptionsViewShowAutoFilterRow",True)
+	Gui.Form.gsRpt.SetGridViewProperty("GVMain","ColumnPanelRowHeight","50")
+	'Caption
+	f.Intrinsic.Control.CallSub(FormatBulk,"Form","Form","GS","gsRpt","GV","GVMain","sInputColumns","ORDER_NO@!@Order No,Customer@!@Cust.,Name_Cust_Ship@!@Name,Invoice@!@Invoice,Part@!@Part,Description@!@Description,Qty_Shipped@!@Qty Shipped,DATE_Invoice@!@Invoice Date,Extension@!@Extension $,SalesPerson@!@Sales Rep.,AmtInvoice@!@Invoice Amt $,AmtPaid@!@Amt Paid $,PctPaid@!@Pct Paid %,GrossProfit@!@Gross Profit $,PctProfit@!@Pct Profit %,ComAmt@!@Commission Amt $,LastPayDate@!@Last Pymt. Date,Cost@!@Cost $,Commission_Type@!@Comm. Type,Commission_Rate@!@Comm. Rate,AltFrom@!@Alt. From,AltNum@!@Alt. #,CommissionRef@!@Comm. Ref,Price_Discount@!@Discount Price $,Amt_discount@!@Discount Amt $,CostInv@!@Inv. Cost $,CostOrd@!@Ord Cost $,Line_Type@!@Line Type,Product_Line@!@PL,InvPartCost@!@Inv. Part Cost $,Location@!@Locn,Credit_Memo_Flag@!@Reduction,Flag_RMA@!@RMA","sProperty","Caption")	
+	'VisibleIndex
+	
+	f.Intrinsic.Control.CallSub(FormatBulk,"Form","Form","GS","gsRpt","GV","GVMain","sInputColumns","Num,SalesPerson,Type,Customer,Name_Cust_Ship,Order_No,Invoice,Date_Invoice,AmtInvoice,AmtPaid,PctPaid,LastPayDate,Line_Type,Part,Location,Description,Product_Line,Qty_Shipped,Extension,Cost,GrossProfit,PctProfit,ComAmt,GL_Account,Descr,Credit_Memo_Flag,Flag_RMA","sProperty","VisibleIndex")
+	'FixedColumn_Left
+	f.Intrinsic.Control.CallSub(FormatBulk,"Form","Form","GS","gsRpt","GV","GVMain","sInputColumns","Num,SalesPerson,Type,Customer,Name_Cust_Ship,Order_No,Invoice,Date_Invoice,AmtInvoice,AmtPaid,PctPaid,LastPayDate","sProperty","FixedColumn_Left")
+	'Header Bold
+	f.Intrinsic.Control.CallSub(FormatBulk,"Form","Form","GS","gsRpt","GV","GVMain","sInputColumns","Num,Customer,Name_Cust_Ship,Order_No,Invoice,AmtInvoice,AmtPaid,PctPaid,Part,Description,Qty_Shipped,Date_Invoice,LastPayDate,Extension,Cost,GrossProfit,PctProfit,ComAmt,SalesPerson,Type,Commission_Type,Commission_Rate,AltFrom,AltNum,CommissionRef,Discount,Price,Price_Discount,Amt_discount,CostInv,CostOrd,Line_Type,Location,UserID,Product_Line,PartLoc,InvPartCost,GL_Account,Descr,Credit_Memo_Flag,Flag_RMA","sProperty","HeaderFontBold")
+	'HeaderWordWrap
+	f.Intrinsic.Control.CallSub(FormatBulk,"Form","Form","GS","gsRpt","GV","GVMain","sInputColumns","Num,Customer,Name_Cust_Ship,Order_No,Invoice,AmtInvoice,AmtPaid,PctPaid,Line_Type,Part,Description,Qty_Shipped,Date_Invoice,LastPayDate,Extension,Cost,GrossProfit,PctProfit,ComAmt,SalesPerson,Commission_Type,Commission_Rate,AltFrom,AltNum,CommissionRef,Discount,Price,Price_Discount,Amt_discount,CostInv,CostOrd,Line_Type,Location,UserID,Product_Line,PartLoc,InvPartCost,GL_Account,Descr,Credit_Memo_Flag,Flag_RMA","sProperty","HeaderWordWrap")		
+	'Width
+	f.Intrinsic.Control.CallSub(FormatBulk,"Form","Form","GS","gsRpt","GV","GVMain","sInputColumns","Num,Product_Line,UserID,Location,Line_Type","sProperty","Width","sWidth","35")
+	f.Intrinsic.Control.CallSub(FormatBulk,"Form","Form","GS","gsRpt","GV","GVMain","sInputColumns","Type,SalesPerson,AltFrom,AltNum","sProperty","Width","sWidth","40")
+	f.Intrinsic.Control.CallSub(FormatBulk,"Form","Form","GS","gsRpt","GV","GVMain","sInputColumns","Qty_Shipped,PctPaid","sProperty","MinWidth","sWidth","53")
+	f.Intrinsic.Control.CallSub(FormatBulk,"Form","Form","GS","gsRpt","GV","GVMain","sInputColumns","Customer,Order_No,Invoice,Credit_Memo_Flag,Flag_RMA","sProperty","Width","sWidth","50")
+	f.Intrinsic.Control.CallSub(FormatBulk,"Form","Form","GS","gsRpt","GV","GVMain","sInputColumns","PctProfit,Commission_Type,Commission_Rate,CommissionRef","sProperty","Width","sWidth","60")
+	f.Intrinsic.Control.CallSub(FormatBulk,"Form","Form","GS","gsRpt","GV","GVMain","sInputColumns","Date_Invoice,LastPayDate","sProperty","Width","sWidth","80")
+	f.Intrinsic.Control.CallSub(FormatBulk,"Form","Form","GS","gsRpt","GV","GVMain","sInputColumns","Part","sProperty","MinWidth","sWidth","120")
+	f.Intrinsic.Control.CallSub(FormatBulk,"Form","Form","GS","gsRpt","GV","GVMain","sInputColumns","AmtInvoice,ComAmt,GrossProfit,Cost,Extension,AmtPaid,GL_Account","sProperty","MinWidth","sWidth","80")	
+	f.Intrinsic.Control.CallSub(FormatBulk,"Form","Form","GS","gsRpt","GV","GVMain","sInputColumns","AmtInvoice,ComAmt,GrossProfit,Cost,Extension,AmtPaid","sProperty","MaxWidth","sWidth","100")
+	f.Intrinsic.Control.CallSub(FormatBulk,"Form","Form","GS","gsRpt","GV","GVMain","sInputColumns","Name_Cust_Ship,Description,Descr","sProperty","MinWidth","sWidth","140")
+	'Width for invisible
+	f.Intrinsic.Control.CallSub(FormatBulk,"Form","Form","GS","gsRpt","GV","GVMain","sInputColumns","Discount,Price,Price_Discount,Amt_discount,CostInv,CostOrd,Line_Type,Location,UserID,PartLoc,InvPartCost,OrdUnitCost,InSeries,Order_Line","sProperty","MinWidth","sWidth","60")
+	f.Intrinsic.Control.CallSub(FormatBulk,"Form","Form","GS","gsRpt","GV","GVMain","sInputColumns","Discount,Price,Price_Discount,Amt_discount,CostInv,CostOrd,Line_Type,Location,UserID,Product_Line,PartLoc,InvPartCost","sProperty","Invisible")
+	'Summary
+	f.Intrinsic.Control.CallSub(FormatBulk,"Form","Form","GS","gsRpt","GV","GVMain","sInputColumns","ComAmt,Extension,Cost,GrossProfit","sProperty","SummaryItem")
+	'Decimal
+	f.Intrinsic.Control.CallSub(FormatBulk,"Form","Form","GS","gsRpt","GV","GVMain","sInputColumns","AmtInvoice,AmtPaid,PctPaid,Qty_Shipped,Extension,Cost,GrossProfit,PctProfit,ComAmt,Price,CostOrd,InvPartCost,CostInv,Price_Discount","sProperty","Decimal_1")
+	'Date
+	Gui.Form.gsRpt.SetColumnProperty("GVMain","Date_Invoice","DisplayCustomDatetime","d")
+	Gui.Form.gsRpt.SetColumnProperty("GVMain","LastPayDate","DisplayCustomDatetime","d")
+	'HeaderHAlignment 
+	f.Intrinsic.Control.CallSub(FormatBulk,"Form","Form","GS","gsRpt","GV","GVMain","sInputColumns","Num,AmtInvoice,AmtPaid,PctPaid,Qty_Shipped,Extension,Cost,GrossProfit,PctProfit,ComAmt,Price,CostOrd,InvPartCost,CostInv","sProperty","HeaderAllign_Far")
+	'HeaderAllign_Top
+	f.Intrinsic.Control.CallSub(FormatBulk,"Form","Form","GS","gsRpt","GV","GVMain","sInputColumns","Num,SalesPerson,Type,Customer,Name_Cust_Ship,Order_No,Invoice,Date_Invoice,AmtInvoice,AmtPaid,PctPaid,LastPayDate,Line_Type,Part,Location,Description,Product_Line,Qty_Shipped,Extension,Cost,GrossProfit,PctProfit,ComAmt,Commission_Type,Commission_Rate,AltFrom,AltNum,CommissionRef,GL_Account,Descr,Credit_Memo_Flag,Flag_RMA","sProperty","HeaderAllign_Top")
+	f.Intrinsic.Control.CallSub(FormatBulk,"Form","Form","GS","gsRpt","GV","GVMain","sInputColumns","Discount,Price,Price_Discount,Amt_discount,CostInv,CostOrd,Line_Type,Location,UserID,Product_Line,PartLoc,InvPartCost","sProperty","HeaderAllign_Top")	
+	'CellBackColor
+	Gui.Form.gsRpt.SetColumnProperty("GVMain","Invoice","CellBackColor","LightCyan")
+	Gui.Form.gsRpt.SetColumnProperty("GVMain","AmtInvoice","CellBackColor","Thistle")
+	Gui.Form.gsRpt.SetColumnProperty("GVMain","AmtPaid","CellBackColor","LightSkyBlue")
+	Gui.Form.gsRpt.SetColumnProperty("GVMain","PctProfit","CellBackColor","YellowGreen")
+	Gui.Form.gsRpt.SetColumnProperty("GVMain","PctPaid","CellBackColor","YellowGreen")
+	Gui.Form.gsRpt.SetColumnProperty("GVMain","Extension","CellBackColor","Thistle")
+	Gui.Form.gsRpt.SetColumnProperty("GVMain","Cost","CellBackColor","#FFA07A")
+	Gui.Form.gsRpt.SetColumnProperty("GVMain","GrossProfit","CellBackColor","#98FB98")
+	Gui.Form.gsRpt.SetColumnProperty("GVMain","ComAmt","CellBackColor","LightSteelBlue")
+	'CellForecolor
+	Gui.Form.gsRpt.SetColumnProperty("GVMain","AmtPaid","CellForeColor","Blue")
+	'CellHAlignment
+	Gui.Form.gsRpt.SetColumnProperty("GVMain","Invoice","CellHAlignment","Center")
+	'For_RowCell_Click
+	f.Intrinsic.Control.CallSub(FormatBulk,"Form","Form","GS","gsRpt","GV","GVMain","sInputColumns","AmtPaid","sProperty","For_RowCell_Click")
+	
+	gui.Form.gsRpt.ResumeLayout()
+	
+F.Intrinsic.Control.Catch
+	F.Intrinsic.String.Build("Project: {0}{1}{1}Subroutine: {2}{1}Error Occurred {3} with description {4}{1}{1}GAB Version: {5}",V.Ambient.ScriptPath,V.Ambient.Newline,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Ambient.GABVersion,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.CallSub("Unload")
+F.Intrinsic.Control.EndTry
+Program.Sub.Format_gsRpt.End
+
+Program.Sub.Format_gsPayments.Start
+f.Intrinsic.Control.Try
+	v.Local.sError.Declare
+	
+	Gui.Payments.gsRpt.SuspendLayout()	
+	Gui.Payments.gsPayments.SetGridViewProperty("GVPayments","AllowSort",True)
+	Gui.Payments.gsPayments.SetGridViewProperty("GVPayments","AllowFilter",True)
+	Gui.Payments.gsPayments.SetGridViewProperty("GVPayments","EnableAppearanceOddRow",False)
+	Gui.Payments.gsPayments.SetGridViewProperty("GVPayments","OptionsViewShowAutoFilterRow",True)
+	Gui.Payments.gsPayments.SetGridViewProperty("GVPayments","ColumnPanelRowHeight","35")
+	'Caption		
+	f.Intrinsic.Control.CallSub(FormatBulk,"Form","Payments","GS","gsPayments","GV","GVPayments","sInputColumns","AmtPaid@!@Amt Paid $,Date_Transaction@!@Date,BATCH_NUM@!@Batch Num,BATCH_LINE@!@Batch Line,BATCH_CODE@!@Batch Code,GL_ACCOUNT@!@GL Account","sProperty","Caption")	
+	'VisibleIndex
+	f.Intrinsic.Control.CallSub(FormatBulk,"Form","Payments","GS","gsPayments","GV","GVPayments","sInputColumns","Invoice,Date_Transaction,AmtPaid,BATCH_NUM,BATCH_LINE,BATCH_CODE,GL_ACCOUNT,REFERENCE","sProperty","VisibleIndex")
+	'FixedColumn_Left
+	f.Intrinsic.Control.CallSub(FormatBulk,"Form","Payments","GS","gsPayments","GV","GVPayments","sInputColumns","AmtPaid","sProperty","FixedColumn_Left")
+	'Header Bold
+	f.Intrinsic.Control.CallSub(FormatBulk,"Form","Payments","GS","gsPayments","GV","GVPayments","sInputColumns","Invoice,Date_Transaction,AmtPaid,BATCH_NUM,BATCH_LINE,BATCH_CODE,GL_ACCOUNT,REFERENCE","sProperty","HeaderFontBold")
+	'HeaderWordWrap
+	f.Intrinsic.Control.CallSub(FormatBulk,"Form","Payments","GS","gsPayments","GV","GVPayments","sInputColumns","Invoice,Date_Transaction,AmtPaid,BATCH_NUM,BATCH_LINE,BATCH_CODE,GL_ACCOUNT,REFERENCE","sProperty","HeaderWordWrap")		
+	'Width
+	f.Intrinsic.Control.CallSub(FormatBulk,"Form","Payments","GS","gsPayments","GV","GVPayments","sInputColumns","Invoice","sProperty","Invisible")
+	'Width
+	f.Intrinsic.Control.CallSub(FormatBulk,"Form","Payments","GS","gsPayments","GV","GVPayments","sInputColumns","AmtPaid","sProperty","MinWidth","sWidth","80")
+	f.Intrinsic.Control.CallSub(FormatBulk,"Form","Payments","GS","gsPayments","GV","GVPayments","sInputColumns","Date_Transaction","sProperty","Width","sWidth","80")
+	f.Intrinsic.Control.CallSub(FormatBulk,"Form","Payments","GS","gsPayments","GV","GVPayments","sInputColumns","BATCH_NUM,BATCH_LINE,BATCH_CODE","sProperty","Width","sWidth","60")
+	f.Intrinsic.Control.CallSub(FormatBulk,"Form","Payments","GS","gsPayments","GV","GVPayments","sInputColumns","GL_Account","sProperty","MinWidth","sWidth","100")
+	f.Intrinsic.Control.CallSub(FormatBulk,"Form","Payments","GS","gsPayments","GV","GVPayments","sInputColumns","Reference","sProperty","MinWidth","sWidth","120")
+	'Summary
+	f.Intrinsic.Control.CallSub(FormatBulk,"Form","Payments","GS","gsPayments","GV","GVPayments","sInputColumns","AmtPaid","sProperty","SummaryItem")
+	'Decimal
+	f.Intrinsic.Control.CallSub(FormatBulk,"Form","Payments","GS","gsPayments","GV","GVPayments","sInputColumns","AmtPaid","sProperty","Decimal_1")
+	'Date
+	Gui.Payments.gsPayments.SetColumnProperty("GVPayments","Date_Transaction","DisplayCustomDatetime","d")
+
+	'HeaderHAlignment 
+	f.Intrinsic.Control.CallSub(FormatBulk,"Form","Payments","GS","gsPayments","GV","GVPayments","sInputColumns","AmtPaid","sProperty","HeaderAllign_Far")
+	f.Intrinsic.Control.CallSub(FormatBulk,"Form","Payments","GS","gsPayments","GV","GVPayments","sInputColumns","Invoice,Date_Transaction,AmtPaid,BATCH_NUM,BATCH_LINE,BATCH_CODE,GL_ACCOUNT,REFERENCE","sProperty","HeaderAllign_Top")
+
+	gui.Payments.gsPayments.ResumeLayout()
+	
+F.Intrinsic.Control.Catch
+	F.Intrinsic.String.Build("Project: {0}{1}{1}Subroutine: {2}{1}Error Occurred {3} with description {4}{1}{1}GAB Version: {5}",V.Ambient.ScriptPath,V.Ambient.Newline,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Ambient.GABVersion,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.CallSub("Unload")
+F.Intrinsic.Control.EndTry
+Program.Sub.Format_gsPayments.End
+
+Program.Sub.FormatBulk.Start
+f.Intrinsic.Control.Try
+	V.Local..BulkDeclareString(sError,sColumns,sHold)
+	v.Local..BulkDeclareLong(iCnt)
+	
+	f.Intrinsic.String.Split(v.Args.sInputColumns,",",v.Local.sColumns)
+	f.Intrinsic.Control.For(v.Local.iCnt,0,v.Local.sColumns.UBound,1)
+		F.Intrinsic.Control.SelectCase(v.Args.sProperty)
+			F.Intrinsic.Control.Case("MinWidth")
+				gui.[v.Args.Form].[v.Args.GS].SetColumnProperty(v.Args.GV,v.Local.sColumns(v.Local.iCnt),"MinWidth",v.Args.sWidth)
+			F.Intrinsic.Control.Case("MaxWidth")
+				gui.[v.args.Form].[v.Args.GS].SetColumnProperty(v.Args.GV,v.Local.sColumns(v.Local.iCnt),"MaxWidth",v.Args.sWidth)
+			F.Intrinsic.Control.Case("Width")
+				gui.[v.args.Form].[v.Args.GS].SetColumnProperty(v.Args.GV,v.Local.sColumns(v.Local.iCnt),"MinWidth",v.Args.sWidth)
+				gui.[v.args.Form].[v.Args.GS].SetColumnProperty(v.Args.GV,v.Local.sColumns(v.Local.iCnt),"MaxWidth",v.Args.sWidth)
+			F.Intrinsic.Control.Case("Invisible")
+				gui.[v.args.Form].[v.Args.GS].SetColumnProperty(v.Args.GV,v.Local.sColumns(v.Local.iCnt),"Visible",False)
+			F.Intrinsic.Control.Case("VisibleIndex")
+				gui.[v.args.Form].[v.Args.GS].SetColumnProperty(v.Args.GV,v.Local.sColumns(v.Local.iCnt),"VisibleIndex",v.Local.iCnt)
+			F.Intrinsic.Control.Case("Caption")
+				f.Intrinsic.String.Split(v.Local.sColumns(v.Local.iCnt),"@!@",v.Local.sHold)
+				gui.[v.args.Form].[v.Args.GS].SetColumnProperty(v.Args.GV,v.Local.sHold(0),"Caption",v.Local.sHold(1))
+			f.Intrinsic.Control.Case("HeaderWordWrap")
+				gui.[v.args.Form].[v.Args.GS].SetColumnProperty(v.Args.GV,v.Local.sColumns(v.Local.iCnt),"HeaderWordWrap","Wrap")
+			F.Intrinsic.Control.Case("HeaderAllign_Far")
+				gui.[v.args.Form].[v.Args.GS].SetColumnProperty(v.Args.GV,v.Local.sColumns(v.Local.iCnt),"HeaderHAlignment","Far")
+			F.Intrinsic.Control.Case("HeaderAllign_Top")
+				gui.[v.args.Form].[v.Args.GS].SetColumnProperty(v.Args.GV,v.Local.sColumns(v.Local.iCnt),"HeaderVAlignment","Top")
+			F.Intrinsic.Control.Case("HeaderFontBold")	
+				gui.[v.args.Form].[v.Args.GS].SetColumnProperty(v.Args.GV,v.Local.sColumns(v.Local.iCnt),"HeaderFontBold",True)
+			F.Intrinsic.Control.Case("Decimal_1")	
+				gui.[v.args.Form].[v.Args.GS].SetColumnProperty(v.Args.GV,v.Local.sColumns(v.Local.iCnt),"DisplayCustomNumeric","###,###,###,##0.00")
+			f.Intrinsic.Control.Case("CellBackColor")
+				gui.[v.args.Form].[v.Args.GS].SetColumnProperty(v.Args.GV,v.Local.sColumns(v.Local.iCnt),"CellBackColor",v.Args.sColor)
+			f.Intrinsic.Control.Case("FixedColumn_Left")
+				gui.[v.args.Form].[v.Args.GS].SetColumnProperty(v.Args.GV,v.Local.sColumns(v.Local.iCnt),"Fixed","Left")
+			f.Intrinsic.Control.Case("SummaryItem")
+				f.Intrinsic.String.Build("Sum_{0}",v.Local.sColumns(v.Local.iCnt),v.Local.sHold)
+				gui.[v.args.Form].[v.Args.GS].AddSummaryItem(v.Args.GV,v.Local.sColumns(v.Local.iCnt),v.Local.sHold,"Sum","","","n")
+			f.Intrinsic.Control.Case("For_RowCell_Click")
+				gui.[v.args.Form].[v.Args.GS].SetColumnProperty(v.Args.GV,v.Local.sColumns(v.Local.iCnt),"AllowEdit",False)	
+				gui.[v.args.Form].[v.Args.GS].SetColumnProperty(v.Args.GV,v.Local.sColumns(v.Local.iCnt),"ReadOnly",True)
+			F.Intrinsic.Control.EndSelect		
+	f.Intrinsic.Control.Next(v.Local.iCnt)
+
+F.Intrinsic.Control.Catch
+	F.Intrinsic.String.Build("Project: {0}{1}Subroutine: {2}{1}Error Occurred {3} with description {4}{1}GAB Version: {5}}",V.Ambient.ScriptPath,V.Ambient.Newline,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Ambient.GABVersion,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	f.Intrinsic.Control.CallSub("Unload")
+F.Intrinsic.Control.EndTry
+Program.Sub.FormatBulk.End
+
+Program.Sub.gsRpt_RowCellClick.Start
+f.Intrinsic.Control.Try
+	v.Local.sError.Declare
+	v.Local.sFilter.Declare
+	v.Local.sHold.Declare
+	
+	f.Intrinsic.Control.If(v.Args.Column,=,"AmtPaid")
+		'Fill header
+		gui.Payments.txtInvoice.Text(v.DataTable.OrdHist(v.Args.RowIndex).Invoice!FieldValString)
+		f.Intrinsic.String.Format(v.DataTable.OrdHist(v.Args.RowIndex).AmtInvoice!FieldValString,"0.00",v.Local.sHold)
+		gui.Payments.txtAmtInvoice.Text(v.Local.shold)
+		gui.Payments.txtCustomer.Text(v.DataTable.OrdHist(v.Args.RowIndex).Customer!FieldValString)
+		gui.Payments.txtNameCustomer.Text(v.DataTable.OrdHist(v.Args.RowIndex).Name_Cust_Ship!FieldValString)
+		gui.Payments.txtOrder.Text(v.DataTable.OrdHist(v.Args.RowIndex).Order_No!FieldValString)
+		gui.Payments.txtSalesID.Text(v.DataTable.OrdHist(v.Args.RowIndex).SalesPerson!FieldValString)
+		f.Intrinsic.String.Format(v.DataTable.OrdHist(v.Args.RowIndex).PctPaid!FieldValString,"0.00",v.Local.sHold)
+		gui.Payments.txtPctPaid.Text(v.local.sHold)
+		'Build Parent Payments grid
+		f.Intrinsic.String.Build("Invoice = '{0}'",v.DataTable.OrdHist(v.Args.RowIndex).Invoice!FieldValString,v.Local.sFilter)
+		f.Data.DataView.SetFilter("Payments","PaymentsDV",v.Local.sFilter)
+		f.Data.DataView.SetSort("Payments","PaymentsDV","Date_Transaction Asc")	
+		gui.Payments.gsPayments.MainView("GVPayments")
+		gui.Payments..Show
+	f.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.Catch
+	F.Intrinsic.String.Build("Project: {0}{1}{1}Subroutine: {2}{1}Error Occurred {3} with description {4}{1}{1}GAB Version: {5}",V.Ambient.ScriptPath,V.Ambient.Newline,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Ambient.GABVersion,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.CallSub("Unload")
+F.Intrinsic.Control.EndTry
+Program.Sub.gsRpt_RowCellClick.End
+
+Program.Sub.Print_Report.Start
+f.Intrinsic.Control.Try
+	v.Local..BulkDeclareLong(iBIRunID,iRptID,iBILogID)
+	v.Local..BulkDeclareString(sError,sVal)
+		
+		f.Intrinsic.UI.InvokeWaitDialog("Generating report...")	
+		'Log Report
+		F.Global.BI.GetRunID(v.Local.iBIRunID)
+		f.Global.BI.GetIDFromName("GCG_5370_Commission_Detail.rpt",True,v.Local.iRptID)
+		F.Global.BI.StartLogging(v.Local.iBIRunID,v.Local.iRptID,-1,"",v.Local.iBILogID)	
+		'Stop Logging
+		F.Global.BI.StopLogging(v.Local.iBILogID)
+		f.Intrinsic.String.Build("{0}*!*{1} - {2}*!*{3}  {4}*!*{5}",V.Screen.Form!txtSalesRepID.Text,V.Screen.Form!txtSalesRepID.Text.Trim,v.Screen.Form!txtSalesRepName.Text.Trim,v.Args.StartDate,v.Args.EndDate,v.Caller.User,v.Local.sVal)
+		
+		f.Intrinsic.UI.CloseWaitDialog
+		F.Global.BI.RunReportPreProcessor(v.Local.iBIRunID,v.Local.iBILogID,"SalesID*!*SalesPerson*!*DateRange*!*UserID",V.Local.sVal,"",-1,True,"",-1,"",-1,"","",v.Local.iBIRunID)
+	
+	f.Intrinsic.UI.CloseWaitDialog
+	
+F.Intrinsic.Control.Catch
+	F.Intrinsic.String.Build("Project: {0}{1}{1}Subroutine: {2}{1}Error Occurred {3} with description {4}{1}{1}GAB Version: {5}",V.Ambient.ScriptPath,V.Ambient.Newline,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Ambient.GABVersion,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	f.Intrinsic.Control.CallSub("Form_Unload")
+F.Intrinsic.Control.EndTry
+Program.Sub.Print_Report.End
+
+Program.Sub.cmdExportExcel_Click.Start
+F.Intrinsic.Control.Try
+	V.Local.sError.Declare
+	
+	V.Local.sFileExport.Declare
+	V.Local.bExcel.Declare
+	V.Local.bFileLocked.Declare
+	V.Local.sMsg.Declare
+
+	F.Automation.MSExcel.CheckPresence(V.Local.bExcel)
+
+	F.Intrinsic.Control.If(V.Local.bExcel)
+		F.Intrinsic.String.Build("{0}\GCG_5370_Commission{1}.xlsx",V.Caller.LocalGssTempDir,v.Ambient.Now.FormatMMDDYYYYHhNnSs,V.Local.sFileExport)
+		F.Intrinsic.File.IsFileLocked(V.Local.sFileExport,V.Local.bFileLocked)
+		F.Intrinsic.Control.If(V.Local.bFileLocked)
+			F.Intrinsic.String.Build("File is already open. Please close and export again.{0}File: {1}",V.Ambient.NewLine,V.Local.sFileExport,V.Local.sMsg)
+			F.Intrinsic.UI.Msgbox(V.Local.sMsg,"File In Use")
+		F.Intrinsic.Control.Else
+			Gui.Form.gsRpt.Export(V.Local.sFileExport,"xlsx")
+			F.Intrinsic.Task.ShellExec(0,"",V.Local.sFileExport,"","",1)
+		F.Intrinsic.Control.EndIf
+	F.Intrinsic.Control.Else
+		F.Intrinsic.String.Build("{0}\GCG_5370_Commission{1}.csv",V.Caller.LocalGssTempDir,v.Ambient.Now.FormatMMDDYYYYHhNnSs,V.Local.sFileExport)
+		F.Intrinsic.File.IsFileLocked(V.Local.sFileExport,V.Local.bFileLocked)
+		F.Intrinsic.Control.If(V.Local.bFileLocked)
+			F.Intrinsic.String.Build("File is already open. Please close and export again.{0}File: {1}",V.Ambient.NewLine,V.Local.sFileExport,V.Local.sMsg)
+			F.Intrinsic.UI.Msgbox(V.Local.sMsg,"File In Use")
+		F.Intrinsic.Control.Else
+			Gui.Form.gsRpt.Export(V.Local.sFileExport,"csv")
+		F.Intrinsic.Control.EndIf
+		F.Intrinsic.Task.ShellExec(0,"",V.Local.sFileExport,"","",1)
+	F.Intrinsic.Control.EndIf		
+	
+	F.Intrinsic.Control.Catch
+		F.Intrinsic.String.Build("Project: {0}{1}{1}Subroutine: {2}{1}Error Occurred {3} with description {4}{1}{1}GAB Version: {5}",V.Ambient.ScriptPath,V.Ambient.Newline,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Ambient.GABVersion,V.Local.sError)
+		F.Intrinsic.UI.Msgbox(V.Local.sError)
+		F.Intrinsic.Control.End 
+	F.Intrinsic.Control.EndTry
+Program.Sub.cmdExportExcel_Click.End
+
+Program.Sub.chkAllSalesRep_Click.Start
+f.Intrinsic.Control.If(v.Screen.Form!chkAllSalesRep.Value,=,1)
+	gui.Form.chkCrystal.Value(0)
+	gui.Form.chkCrystal.Enabled(False)
+f.Intrinsic.Control.Else
+	gui.Form.chkCrystal.Enabled(True)
+f.Intrinsic.Control.EndIf
+Program.Sub.chkAllSalesRep_Click.End
+
+Program.Sub.chkLastPayment_Click.Start
+f.Intrinsic.Control.If(v.Screen.Form!chkLastPayment.Value,=,1)
+	gui.Form.dtpStartDate.Enabled(True)
+	gui.Form.dtpEndDate.Enabled(True)
+f.Intrinsic.Control.Else
+	gui.Form.dtpStartDate.Enabled(False)
+	gui.Form.dtpEndDate.Enabled(False)
+f.Intrinsic.Control.EndIf
+Program.Sub.chkLastPayment_Click.End
+
+Program.Sub.Payments_UnLoad.Start
+gui.Payments..Visible(False)
+Program.Sub.Payments_UnLoad.End
+
+Program.Sub.F_ProBar_UnLoad.Start
+gui.F_ProBar..Visible(False)
+Program.Sub.F_ProBar_UnLoad.End
