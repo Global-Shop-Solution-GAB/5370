@@ -1,0 +1,301 @@
+Program.Sub.ScreenSU.Start
+Gui.Form..Create
+Gui.Form..Size(6330,9735)
+Gui.Form..MinX(0)
+Gui.Form..MinY(0)
+Gui.Form..Position(0,0)
+Gui.Form..BackColor(-2147483633)
+Gui.Form..MousePointer(0)
+Gui.Form..Caption("User ID - Sales Person ID Maintenance")
+Gui.Form..Event(UnLoad,Form_UnLoad)
+Gui.Form.lbl1.Create(Label,"User ID",True,765,255,0,75,1665,True,0,"Arial",8,-2147483633,0)
+Gui.Form.lbl2.Create(Label,"Sales ID",True,705,255,0,1020,1665,True,0,"Arial",8,-2147483633,0)
+Gui.Form.lbl3.Create(Label,"Name",True,765,255,0,1740,1665,True,0,"Arial",8,-2147483633,0)
+Gui.Form.txtUser.Create(TextBox,"",True,840,300,0,75,1935,True,0,"Arial",8,-2147483643,1)
+Gui.Form.txtUser.MaxLength(10)
+Gui.Form.txtUser.TabStop(True)
+Gui.Form.txtUser.TabIndex(3)
+Gui.Form.txtSales.Create(TextBox,"",True,570,300,0,1020,1935,True,0,"Arial",8,-2147483643,1)
+Gui.Form.txtSales.MaxLength(3)
+Gui.Form.txtSales.TabStop(True)
+Gui.Form.txtSales.TabIndex(4)
+Gui.Form.txtName.Create(TextBox,"",True,4335,300,0,1740,1935,True,0,"Arial",8,-2147483643,1)
+Gui.Form.txtName.TabStop(True)
+Gui.Form.txtName.TabIndex(5)
+Gui.Form.cmdSave.Create(Button)
+Gui.Form.cmdSave.Size(855,375)
+Gui.Form.cmdSave.Position(75,2430)
+Gui.Form.cmdSave.Caption("Save")
+Gui.Form.cmdSave.Event(Click,cmdSave_Click)
+Gui.Form.cmdSave.TabStop(True)
+Gui.Form.cmdSave.TabIndex(6)
+Gui.Form.gsUser.Create(GsGridControl)
+Gui.Form.gsUser.Size(6000,6225)
+Gui.Form.gsUser.Position(75,2940)
+Gui.Form.gsUser.Event(RowCellClick,GsGridControl1_RowCellClick)
+Gui.Form.gsUser.TabStop(True)
+Gui.Form.gsUser.TabIndex(8)
+Gui.Form.cmdClear.Create(Button)
+Gui.Form.cmdClear.Size(855,375)
+Gui.Form.cmdClear.Position(1050,2430)
+Gui.Form.cmdClear.Caption("Clear")
+Gui.Form.cmdClear.Event(Click,cmdClear_Click)
+Gui.Form.cmdClear.TabStop(True)
+Gui.Form.cmdClear.TabIndex(7)
+Gui.Form.lbl4.Create(Label,"Sales Rep. not having GSS user ID that can be run by any Sales Rep.",True,5160,255,0,75,345,True,0,"Arial",8,-2147483633,0)
+Gui.Form.txtCommonSalesRep.Create(TextBoxR)
+Gui.Form.txtCommonSalesRep.Size(6000,540)
+Gui.Form.txtCommonSalesRep.Position(75,570)
+Gui.Form.txtCommonSalesRep.TabStop(True)
+Gui.Form.txtCommonSalesRep.TabIndex(1)
+Gui.Form.cmdSaveCommon.Create(Button)
+Gui.Form.cmdSaveCommon.Size(855,375)
+Gui.Form.cmdSaveCommon.Position(90,1215)
+Gui.Form.cmdSaveCommon.TabStop(True)
+Gui.Form.cmdSaveCommon.TabIndex(2)
+Gui.Form.cmdSaveCommon.Caption("Save")
+Gui.Form.cmdSaveCommon.Event(Click,cmdSaveCommon_Click)
+Program.Sub.ScreenSU.End
+
+Program.Sub.Preflight.Start
+Program.Sub.Preflight.End
+
+Program.Sub.Main.Start
+'BN, Nov 20, 2018
+'Customer: Controlled Fluids, Inc.
+'Project 5370 - This project will pull the invoices paid and calculate the commission for a Sales Person
+'This script will maintain the UserID - SalesPerson ID relation
+F.Intrinsic.Control.Try
+	v.Local.sError.Declare
+	v.Local.sSQL.Declare
+	v.Local.sRet.Declare
+	V.Local.bGroup.Declare
+	
+	f.ODBC.Connection!conx.OpenCompanyConnection	
+	'Check if user is in security group 'COMMAN'
+	F.Global.Security.IsInGroup(V.Caller.User,"COMMAN",V.Caller.CompanyCode,V.Local.bGroup)
+	f.Intrinsic.Control.If(v.Local.bGroup.Not)
+		'User is not in security group
+		f.Intrinsic.UI.Msgbox("User is not a Manager","End Program")
+		f.Intrinsic.Control.ExitSub	
+	f.Intrinsic.Control.EndIf
+	f.Intrinsic.Control.CallSub("Bind_UserSales")
+	gui.Form..Show
+	
+F.Intrinsic.Control.Catch
+	F.Intrinsic.String.Build("Project: {0}{1}{1}Subroutine: {2}{1}Error Occurred {3} with description {4}{1}{1}GAB Version: {5}",V.Ambient.ScriptPath,V.Ambient.Newline,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Ambient.GABVersion,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)	
+F.Intrinsic.Control.EndTry	
+Program.Sub.Main.End
+
+Program.Sub.Form_UnLoad.Start
+f.Intrinsic.Control.CallSub("Unload")
+Program.Sub.Form_UnLoad.End
+
+Program.Sub.UnLoad.Start
+F.Intrinsic.Control.Try
+	v.Local.sError.Declare
+	f.Intrinsic.Control.If(v.ODBC.conx.State,=,1)
+		f.ODBC.Connection!conx.Close
+	f.Intrinsic.Control.EndIf
+	f.Intrinsic.Control.End
+	
+F.Intrinsic.Control.Catch
+	F.Intrinsic.String.Build("Project: {0}{1}{1}Subroutine: {2}{1}Error Occurred {3} with description {4}{1}{1}GAB Version: {5}",V.Ambient.ScriptPath,V.Ambient.Newline,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Ambient.GABVersion,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)	
+F.Intrinsic.Control.EndTry
+Program.Sub.UnLoad.End
+
+Program.Sub.Bind_UserSales.Start
+f.Intrinsic.Control.Try
+	v.Local.sError.Declare
+	v.Local.sRet.Declare
+	
+	'Bind userID - Sales Rep ID
+	f.Intrinsic.Control.If(v.DataTable.R.Exists)
+		f.Data.DataTable.Close("R")
+	f.Intrinsic.Control.EndIf
+	f.Data.DataTable.CreateFromSQL("R","conx","Select UserID,Sales,Name from GCG_5370_IDMaint where UserID <> '###$$$' order by UserID",True)
+	f.Data.DataTable.AddColumn("R","Delete","String","Delete")
+	gui.Form.gsUser.AddGridviewFromDatatable("RGV","R")
+	gui.Form.gsUser.MainView("RGV")	
+	f.Intrinsic.Control.CallSub("Format_Grid")
+	
+	'Common Sales Rep that can be run by any Sales Rep
+	f.ODBC.Connection!conx.ExecuteAndReturn("Select Sales from GCG_5370_IDMaint where UserID = '###$$$'",v.Local.sRet)
+	f.Intrinsic.String.Replace(v.Local.sRet,"#$#",",",v.Local.sRet)	
+	gui.Form.txtCommonSalesRep.Text(v.Local.sRet.Trim)	
+
+F.Intrinsic.Control.Catch
+	F.Intrinsic.String.Build("Project: {0}{1}Subroutine: {2}{1}Error Occurred {3} with description {4}{1}GAB Version: {5}}",V.Ambient.ScriptPath,V.Ambient.Newline,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Ambient.GABVersion,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	f.Intrinsic.Control.CallSub("Unload")
+F.Intrinsic.Control.EndTry
+Program.Sub.Bind_UserSales.End
+
+Program.Sub.Format_Grid.Start
+f.Intrinsic.Control.Try
+	v.Local.sError.Declare
+	
+	Gui.Form.gsUser.SuspendLayout()
+	
+	'General format for the grid
+	Gui.Form.gsUser.SetGridViewProperty("RGV","AllowSort",True)
+	Gui.Form.gsUser.SetGridViewProperty("RGV","AllowFilter",True)
+	Gui.Form.gsUser.SetGridViewProperty("RGV","OptionsFindAlwaysVisible",True)
+	Gui.Form.gsUser.SetGridViewProperty("RGV","EnableAppearanceOddRow",False)
+	Gui.Form.gsUser.SetGridViewProperty("RGV","OptionsViewShowAutoFilterRow",True)
+
+	''Width	
+	f.Intrinsic.Control.CallSub(FormatBulk,"GS","gsUser","GV","RGV","sInputColumns","UserID","sProperty","Width","sWidth","70")
+	f.Intrinsic.Control.CallSub(FormatBulk,"GS","gsUser","GV","RGV","sInputColumns","Sales","sProperty","Width","sWidth","60")
+	f.Intrinsic.Control.CallSub(FormatBulk,"GS","gsUser","GV","RGV","sInputColumns","Delete","sProperty","Width","sWidth","50")
+	'Header Font bold
+	f.Intrinsic.Control.CallSub(FormatBulk,"GS","gsUser","GV","RGV","sInputColumns","UserID,Sales,Delete,Name","sProperty","HeaderFontBold")
+	'For_Row_CellClick
+	f.Intrinsic.Control.CallSub(FormatBulk,"GS","gsUser","GV","RGV","sInputColumns","UserID,Sales,Delete","sProperty","For_RowCell_Click")
+	'Editor button
+	gui.Form.gsUser.ColumnEdit("RGV","Delete","editorbutton","Delete")
+	
+	gui.Form.gsUser.ResumeLayout()
+
+F.Intrinsic.Control.Catch
+	F.Intrinsic.String.Build("Project: {0}{1}Subroutine: {2}{1}Error Occurred {3} with description {4}{1}GAB Version: {5}}",V.Ambient.ScriptPath,V.Ambient.Newline,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Ambient.GABVersion,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)	
+	f.Intrinsic.Control.CallSub("Unload")
+F.Intrinsic.Control.EndTry
+Program.Sub.Format_Grid.End
+
+Program.Sub.FormatBulk.Start
+f.Intrinsic.Control.Try
+	V.Local..BulkDeclareString(sError,sColumns,sHold)
+	v.Local..BulkDeclareLong(iCnt)
+	
+	f.Intrinsic.String.Split(v.Args.sInputColumns,",",v.Local.sColumns)
+	f.Intrinsic.Control.For(v.Local.iCnt,0,v.Local.sColumns.UBound,1)
+		F.Intrinsic.Control.SelectCase(v.Args.sProperty)
+			F.Intrinsic.Control.Case("Width")
+				gui.Form.[v.Args.GS].SetColumnProperty(v.Args.GV,v.Local.sColumns(v.Local.iCnt),"MinWidth",v.Args.sWidth)
+				gui.Form.[v.Args.GS].SetColumnProperty(v.Args.GV,v.Local.sColumns(v.Local.iCnt),"MaxWidth",v.Args.sWidth)
+			F.Intrinsic.Control.Case("HeaderFontBold")	
+				gui.Form.[v.Args.GS].SetColumnProperty(v.Args.GV,v.Local.sColumns(v.Local.iCnt),"HeaderFontBold",True)			
+			f.Intrinsic.Control.Case("CellBackColor")
+				gui.Form.[v.Args.GS].SetColumnProperty(v.Args.GV,v.Local.sColumns(v.Local.iCnt),"CellBackColor",v.Args.sColor)
+			f.Intrinsic.Control.Case("For_RowCell_Click")
+				gui.Form.[v.Args.GS].SetColumnProperty(v.Args.GV,v.Local.sColumns(v.Local.iCnt),"AllowEdit",False)	
+				gui.Form.[v.Args.GS].SetColumnProperty(v.Args.GV,v.Local.sColumns(v.Local.iCnt),"ReadOnly",True)
+			F.Intrinsic.Control.EndSelect		
+	f.Intrinsic.Control.Next(v.Local.iCnt)
+
+F.Intrinsic.Control.Catch
+	F.Intrinsic.String.Build("Project: {0}{1}Subroutine: {2}{1}Error Occurred {3} with description {4}{1}GAB Version: {5}}",V.Ambient.ScriptPath,V.Ambient.Newline,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Ambient.GABVersion,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	f.Intrinsic.Control.CallSub("Unload")
+F.Intrinsic.Control.EndTry
+Program.Sub.FormatBulk.End
+
+Program.Sub.cmdSave_Click.Start
+f.Intrinsic.Control.Try
+	v.Local.sError.Declare
+	v.Local.sSQL.Declare
+	v.Local.sRet.Declare
+	v.Local.bExist.Declare
+	v.Local.sUserLowerCase.Declare
+	
+	'Validate ID and Reason
+	f.Intrinsic.Control.If(v.Screen.Form!txtUser.Text.Trim,=,"")
+		f.Intrinsic.UI.Msgbox("User ID is empty","Invalid User ID")
+		f.Intrinsic.Control.ExitSub
+	f.Intrinsic.Control.EndIf
+	
+	f.Intrinsic.Control.If(v.Screen.Form!txtSales.Text.Trim,=,"")
+		f.Intrinsic.UI.Msgbox("Sales ID is empty","Invalid Sales ID")
+		f.Intrinsic.Control.ExitSub
+	f.Intrinsic.Control.EndIf
+	
+	f.Intrinsic.String.IsInString(v.Screen.Form!txtName.Text.Trim,"'",True,v.Local.bExist)
+	f.Intrinsic.Control.If(v.Local.bExist)
+		f.Intrinsic.UI.Msgbox("' is not allowed","Invalid Name")
+		f.Intrinsic.Control.ExitSub
+	f.Intrinsic.Control.EndIf
+	
+	f.Intrinsic.String.LCase(v.Screen.Form!txtUser.Text.Trim,v.Local.sUserLowerCase)
+	
+	'Look for the record of the same ID in DB, if yes, update, if no, insert
+	f.Intrinsic.String.Build("Select UserID,Sales,Name from GCG_5370_IDMaint where lcase(ltrim(rtrim(UserID))) = '{0}'",v.Local.sUserLowerCase,v.Local.sSQL)
+	f.ODBC.Connection!conx.ExecuteAndReturn(v.Local.sSQL,v.Local.sRet)
+	f.Intrinsic.Control.If(v.Local.sRet,<>,"")
+		f.Intrinsic.String.Build("Update GCG_5370_IDMaint set Sales = '{0}', Name = '{2}' where lcase(ltrim(rtrim(UserID))) = '{1}'",v.Screen.Form!txtSales.Text.Trim,v.Local.sUserLowerCase,v.Screen.Form!txtName.Text,v.Local.sSQL)
+	f.Intrinsic.Control.Else
+		f.Intrinsic.String.Build("Insert into GCG_5370_IDMaint (UserID,Sales,Name) values ('{0}','{1}','{2}')",v.Screen.Form!txtUser.Text.Trim,v.Screen.Form!txtSales.Text.Trim,v.Screen.Form!txtName.Text,v.Local.sSQL)
+	f.Intrinsic.Control.EndIf	
+	f.ODBC.Connection!conx.Execute(v.Local.sSQL)	
+	f.Intrinsic.Control.CallSub("Bind_UserSales")
+
+F.Intrinsic.Control.Catch
+	F.Intrinsic.String.Build("Project: {0}{1}Subroutine: {2}{1}Error Occurred {3} with description {4}{1}GAB Version: {5}}",V.Ambient.ScriptPath,V.Ambient.Newline,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Ambient.GABVersion,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	f.Intrinsic.Control.CallSub("Unload")
+F.Intrinsic.Control.EndTry
+
+Program.Sub.cmdSave_Click.End
+
+Program.Sub.GsGridControl1_RowCellClick.Start
+f.Intrinsic.Control.Try
+	v.Local.sError.Declare
+	v.Local.sSQL.Declare
+
+	'If UserID or Sales cell is clicked, bring the row to the textboxes
+	f.Intrinsic.Control.If(v.Args.Column,<>,"Delete")
+		gui.Form.txtUser.Text(v.DataTable.R(v.Args.RowIndex).UserID!FieldValTrim)
+		gui.Form.txtSales.Text(v.DataTable.R(v.Args.RowIndex).Sales!FieldValTrim)
+		gui.Form.txtName.Text(v.DataTable.R(v.Args.RowIndex).Name!FieldValTrim)
+	f.Intrinsic.Control.EndIf
+	
+	'If Delete cell is clicked, delete the row
+	f.Intrinsic.Control.If(v.Args.Column,=,"Delete")
+		f.Intrinsic.String.Build("Delete from GCG_5370_IDMaint where ltrim(rtrim(UserID)) = '{0}'",v.DataTable.R(v.Args.RowIndex).UserID!FieldValTrim,v.Local.sSQL)
+		f.ODBC.Connection!conx.Execute(v.Local.sSQL)
+		f.Intrinsic.Control.CallSub("Bind_UserSales")
+	f.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.Catch
+	F.Intrinsic.String.Build("Project: {0}{1}Subroutine: {2}{1}Error Occurred {3} with description {4}{1}GAB Version: {5}}",V.Ambient.ScriptPath,V.Ambient.Newline,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Ambient.GABVersion,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	f.Intrinsic.Control.CallSub("Unload")
+F.Intrinsic.Control.EndTry
+Program.Sub.GsGridControl1_RowCellClick.End
+
+Program.Sub.cmdClear_Click.Start
+gui.Form.txtUser.Text("")
+gui.Form.txtSales.Text("")
+gui.Form.txtName.Text("")
+Program.Sub.cmdClear_Click.End
+Program.Sub.cmdSaveCommon_Click.Start
+f.Intrinsic.Control.Try
+	v.Local.sError.Declare
+	v.Local.sSQL.Declare
+	v.Local.sCommonSalesRep.Declare
+	v.Local.sRet.Declare
+	v.Local.iCnt.Declare
+
+	f.Intrinsic.UI.InvokeWaitDialog("Saving common Sales Reps...")
+	f.Intrinsic.String.UCase(v.Screen.Form!txtCommonSalesRep.Text.Trim,v.Local.sCommonSalesRep)	
+	f.ODBC.Connection!conx.Execute("Delete from GCG_5370_IDMaint where UserID = '###$$$'")
+	f.Intrinsic.String.Split(v.Local.sCommonSalesRep,",",v.Local.sCommonSalesRep)
+	f.Intrinsic.Control.For(v.Local.iCnt,0,v.Local.sCommonSalesRep.UBound,1)
+		f.Intrinsic.Control.If(v.Local.sCommonSalesRep(v.Local.iCnt).Trim,<>,"")
+			f.Intrinsic.String.Build("Insert into GCG_5370_IDMaint (UserID,Sales) values ('###$$$','{0}')",v.Local.sCommonSalesRep(v.Local.iCnt).Trim,v.Local.sSQL)
+			f.ODBC.Connection!conx.Execute(v.Local.sSQL)
+		f.Intrinsic.Control.EndIf
+	f.Intrinsic.Control.Next(v.Local.iCnt)
+	f.Intrinsic.UI.CloseWaitDialog
+
+F.Intrinsic.Control.Catch
+	F.Intrinsic.String.Build("Project: {0}{1}Subroutine: {2}{1}Error Occurred {3} with description {4}{1}GAB Version: {5}}",V.Ambient.ScriptPath,V.Ambient.Newline,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Ambient.GABVersion,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	f.Intrinsic.Control.CallSub("Unload")
+F.Intrinsic.Control.EndTry
+Program.Sub.cmdSaveCommon_Click.End
+
+
